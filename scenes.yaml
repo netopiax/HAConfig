@@ -1,0 +1,227 @@
+  - name: bye_felicia
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: off
+      light.colin_lamp_level: off
+      light.charlie_lamp_level: off
+      light.pendants_level: off
+      light.dining_room_level: off
+      light.tv_room_ceiling_level: off
+      light.hue_white_left: off
+      light.hue_white_right: off
+      light.main_kitchen_light_level: off
+      light.kitchen_spots_level: off
+      switch.front_hall_switch: off
+  - name: tv_room_bright
+    entities:
+      light.tv_room_ceiling_level:
+        state: on
+        brightness_pct: 100
+      light.hue_white_right:
+        state: on
+        brightness_pct: 100
+      light.hue_white_left:
+        state: on
+        brightness_pct: 100
+
+  - name: tv_room_medium
+    entities:
+      light.tv_room_ceiling_level:
+        state: off
+      light.hue_white_right:
+        state: on
+        brightness_pct: 100
+      light.hue_white_left:
+        state: on
+        brightness_pct: 100
+ 
+  - name: tv_room_dim
+    entities:
+      light.tv_room_ceiling_level:
+        state: off
+      light.hue_white_right:
+        state: on
+        brightness_pct: 30
+      light.hue_white_left:
+        state: on
+        brightness_pct: 30
+
+  - name: tv_room_dark
+    entities:
+      light.tv_room_ceiling_level:
+        state: off
+      light.hue_white_right:
+        state: off
+      light.hue_white_left:
+        state: off
+
+  - name: bedroom_bright
+    entities:
+      light.colin_lamp_level:
+        state: on
+        brightness_pct: 100
+      light.charlie_lamp_level:
+        state: on
+        brightness_pct: 100 
+
+  - name: bedroom_dim
+    entities:
+      light.colin_lamp_level:
+        state: on
+        brightness_pct: 30
+      light.charlie_lamp_level:
+        state: on
+        brightness_pct: 30 
+
+  - name: bedroom_dark
+    entities:
+      light.colin_lamp_level: off
+      light.charlie_lamp_level: off
+
+  - name: kitchen_bright
+    entities:
+      light.main_kitchen_light_level: 
+        state: on
+        brightness_pct: 100
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 100
+      light.pendants_level:
+        state: on
+        brightness_pct: 100
+      light.dining_room_level:
+        state: on
+        brightness_pct: 100
+
+  - name: kitchen_dim
+    entities:
+      light.main_kitchen_light_level: 
+        state: on
+        brightness_pct: 50
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 40
+      light.pendants_level:
+        state: on
+        brightness_pct: 50
+      light.dining_room_level:
+        state: on
+        brightness_pct: 25
+
+  - name: kitchen_dark
+    entities:
+      light.main_kitchen_light_level: off
+      light.kitchen_spots_level: off
+      light.pendants_level: off
+      light.dining_room_level: off
+
+  - name: goodnight
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: off
+      light.colin_lamp_level: off
+      light.charlie_lamp_level: off
+      light.pendants_level: off
+      light.dining_room_level: off
+      light.living_room_level: off
+      light.tv_room_ceiling_level: off
+      light.hue_white_left: off
+      light.hue_white_right: off
+      light.main_kitchen_light_level: off
+      light.kitchen_spots_level: off
+      lock.front_door_lock_locked: locked
+    
+  - name: reading
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: off
+      light.colin_lamp_level: 
+        state: on
+        brightness_pct: 25
+      light.charlie_lamp_level:
+        state: on
+        brightness_pct: 25
+      light.pendants_level: off
+      light.dining_room_level: off
+      light.living_room_level: off
+      light.tv_room_ceiling_level: off
+      light.hue_white_left: off
+      light.hue_white_right: off
+      light.main_kitchen_light_level: off
+      light.kitchen_spots_level: off
+
+  - name: sunset
+    entities:
+      light.living_room_level:
+        state: on
+        brightness_pct: 100
+      light.main_kitchen_light_level:
+        state: on
+        brightness_pct: 100
+
+  - name: evening
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: on
+      light.pendants_level: on 
+      light.dining_room_level: 
+        state: on
+        brightness_pct: 75
+      light.main_kitchen_light_level: on
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 75
+     
+  - name: morning
+    entities:
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 50
+      light.pendants_level:
+        state: on
+        brightness_pct: 75
+      light.upstairs_hall_level:
+        state: on
+        brightness_pct: 55
+    
+  - name: tv_time
+    entities:
+      light.dining_room_level: off
+      light.kitchen_spots_level: off
+      light.main_kitchen_light_level: off
+      light.upstairs_hall_level:
+        state: on
+        brightness_pct: 100
+      light.stairs_level:
+        state: on
+        brightness_pct: 100
+      light.hue_white_left: on
+      light.hue_white_right: on
+    
+  - name: bedtime
+    entities:
+      light.living_room_level: off
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 50
+      light.pendants_level:
+        state: on
+        brightness_pct: 50
+      light.hue_white_right: off
+      light.hue_white_left: off
+      light.upstairs_hall_level: 
+        state: on
+        brightness_pct: 25
+      light.stairs_level:
+        state: on
+        brightness_pct: 100
+      light.colin_lamp_level:
+        state: on
+        brightness_pct: 100
+      light.charlie_lamp_level:
+        state: on
+        brightness_pct: 100

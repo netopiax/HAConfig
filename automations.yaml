@@ -1,0 +1,151 @@
+- alias: 'Sunrise douse exterior'
+  id: '1504752058792'
+  trigger:
+  - event: sunrise
+    platform: sun
+  action:
+    entity_id: switch.exterior_switch
+    service: switch.turn_off
+
+- alias: 'Sunset exterior on'
+  id: '1504752058793'
+  trigger:
+  - event: sunset
+    platform: sun
+    offset: -01:00
+  action:
+    entity_id: switch.exterior_switch
+    service: switch.turn_on
+
+- alias: 'Sunset interior lights'
+  id: '1504752058794'
+  trigger:
+  - event: sunset
+    platform: sun
+  action:
+    entity_id: scene.sunset
+    service: scene.turn_on   
+
+- alias: 'Exterior stay on at night'
+  id: '1234'
+  trigger:
+    platform: state
+    entity_id: switch.exterior_switch
+    from: 'on'
+    to: 'off'
+    for:
+      minutes: 7
+  condition:  
+    condition: template
+    value_template: '{{ states.sun.below_horizon == true }}'
+  action:
+    service: switch.turn_on
+    entity_id: switch.exterior_switch
+
+- alias: 'Door unlocked night - lights on'
+  id: '1235'
+  trigger:
+    platform: state
+    entity_id: lock.front_door_lock_locked
+    from: 'locked'
+    to: 'unlocked'
+  condition:
+    condition: template
+    value_template: '{{ states.sun.below_horizon == true }}'
+  action:
+    service: homeassistant.turn_on
+    entity_id:
+      - light.main_kitchen_light_level
+      - light.upstairs_hall_level
+        
+- alias: 'Late night lights off, weekday'
+  id: '1236'
+  trigger:
+    platform: time
+    at: '02:00:00'
+  condition:
+    condition: time
+    weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+    service: homeassistant.turn_off
+    entity_id:
+      - light.living_room_level
+      - light.dining_room_level
+      - light.main_kitchen_light_level
+      - light.kitchen_spots_level
+      - light.front_hall_level
+      - light.tv_room_ceiling_level
+      - light.hue_white_right
+      - light.hue_white_left
+      - light.stairs_level
+      - light.upstairs_hall_level
+      - light.office_level
+
+- alias: "Persistent notification for lock low battery"
+  id: '3456'
+  trigger:
+    platform: state
+    entity_id: lock.front_door_lock_locked
+    from: 'locked'
+    to: 'unlocked'
+  condition:
+    condition: template
+    value_template: '{{ zwave.front_door_lock.battery_level < 30 }}'
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '3456'
+      message: "The front door lock is at {% zwave.front_door_lock.battery_level %} percent"
+      title: "Front Door Lock Battery"
+
+- alias: 'SSL expiry notification'
+  id: 'ssl_exp'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ssl_cert_expiry
+    below: 21
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '4567'
+      message: 'Warning - SSL certificate expires in {% sensor.ssl_cert_expiry %} days and has not been automatically renewed'
+      title: "SSL Certificate Expiring"
+
+- alias: 'HA Update Notification'
+  id: '1111'
+  trigger:
+    - platform: state
+      entity_id: updater.updater
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '1111'
+      message: 'There is a new Home Assistant release available'
+      title: 'Update Available'
+
+- alias: 'Set dark theme at night'
+  id: 'set_dark_theme'
+  initial_state: true
+  trigger:
+    - platform: sun
+      event: sunset
+  action:
+    - service: frontend.set_theme
+      data:
+        name: 'dark_theme'
+
+- alias: 'Set light theme at sunrise'
+  id: 'set_light_theme'
+  initial_state: true
+  trigger:
+    - platform: sun
+      event: sunrise
+  action:
+    - service: frontend.set_theme
+      data:
+        name: 'default'

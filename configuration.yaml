@@ -1,0 +1,206 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude 
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Los_Angeles
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+  themes: !include_dir_merge_named themes/
+
+# Enables configuration UI
+config:
+
+alexa:
+
+intent_script:
+  ActivateSceneIntent:
+    action:
+      service: scene.turn_on
+      data_template:
+        entity_id: scene.{{ Scene | replace(" ", "_") }}
+    speech:
+      type: plain
+      text: !include alexa_confirm.yaml
+
+  amzn1.ask.skill.eaf2305c-434e-4b9f-b311-f8b0093323b0:
+    action:
+      service: scene.turn_on
+      data:
+        entity_id: scene.bye_felicia
+    speech:
+      type: plain
+      text: "Later, Hater"
+
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  ip_ban_enabled: True
+  login_attempts_threshold: 3
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  include_used_components: true
+
+# Discover some devices automatically
+discovery:
+        
+remote:
+  - platform: harmony
+    name: Harmony Hub
+    activity: Watch TV
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+  exclude:
+    entities:
+      - sensor.pws_weather_1d
+      - sensor.pws_weather_1n
+      - sensor.pws_weather_2d
+      - sensor.pws_weather_2n
+      - sensor.pws_weather_3d
+      - sensor.pws_weather_high_1d_f
+      - sensor.pws_weather_low_1d_f
+      - sensor.pws_weather_wind_degrees
+      - sensor.pws_weather_3n
+      - sensor.pws_weather_precip_1d_in
+      - sensor.pws_weather_precip_today_in
+      - sensor.pws_weather_pressure_trend
+      - sensor.ssl_cert_expiry
+#     - sensor.google_wifi_status
+      - sensor.google_wifi_new_version
+      - sensor.google_wifi_uptime
+      - sensor.google_wifi_last_restart
+      - sensor.google_wifi_local_ip
+      - sensor.swap_use
+      - sensor.ram_use
+      - sensor.disk_use_
+      - sensor.average_load_1m
+      - sensor.average_load_15m
+      - sensor.ipv4_address_enxb827ebb89b75
+      - sensor.since_last_boot
+      - binary_sensor.front_relay_presence
+      - sun.sun
+    domains:
+      - zwave
+      - automation
+      - scene
+ 
+recorder:
+  exclude:
+    entities:
+      - sensor.google_wifi_new_version
+      - sensor.google_wifi_uptime
+      - sensor.google_wifi_last_restart
+      - sensor.google_wifi_local_ip
+      - sensor.swap_use
+      - sensor.ram_use
+      - sensor.disk_use_
+      - sensor.average_load_1m
+      - sensor.average_load_15m
+      - sensor.ipv4_address_enxb827ebb89b75
+      - sensor.since_last_boot
+    domains:
+      - group 
+  purge_days: 7
+
+# View all events in a logbook
+logbook:
+  exclude:
+    domains:
+      - zwave
+      - sensor
+
+  # Track the sun
+sun:
+
+zwave:
+  usb_path: /dev/zwave
+  network_key: !secret zwave_network_key 
+  polling_interval: 61000
+
+sensor:
+#  - platform: yr
+  - platform: google_wifi
+  - platform: systemmonitor
+    resources:
+    - type: disk_use_percent
+      arg: /
+    - type: memory_use_percent
+    - type: swap_use_percent
+    - type: load_1m
+    - type: load_15m
+    - type: ipv4_address
+      arg: enxb827ebb89b75
+    - type: since_last_boot
+  - platform: wunderground
+    api_key: !secret wunderground_api
+    pws_id: !secret wu_pws 
+    monitored_conditions:
+      - dewpoint_f
+      - feelslike_f
+      - precip_today_in
+      - pressure_in
+      - temp_f
+      - temp_high_1d_f
+      - temp_low_1d_f
+      - wind_degrees
+      - wind_mph
+      - weather_1d
+      - weather_1n
+      - weather_2d
+      - weather_2n
+      - weather_3d
+      - weather_3n
+
+  - platform: command_line
+    name: SSL Cert Expiry
+    unit_of_measurement: days
+    scan_interval: 10800
+    command: "ssl-cert-check -b -c /etc/letsencrypt/live/4445h.duckdns.org/cert.pem | awk '{ print $NF }'"
+
+emulated_hue:
+  expose_by_default: false
+#  exposed_domains:
+#    - light
+#    - switch
+#    - group
+#    - scene
+
+ecobee:
+  api_key: !secret ecobee_api_key
+
+alarm_control_panel:
+  - platform: manual
+    name: "House Alarm"
+    pending_time: 60
+
+# Text to speech
+tts:
+  - platform: google
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

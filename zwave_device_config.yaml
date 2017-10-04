@@ -1,0 +1,39 @@
+light.charlie_lamp_level:
+  ignored: false
+  polling_intensity: 1
+light.colin_lamp_level:
+  ignored: false
+  polling_intensity: 1
+light.dining_room_level:
+  ignored: false
+  polling_intensity: 1
+zwave.exterior:
+  ignored: false
+  polling_intensity: 1
+zwave.front_hall:
+  ignored: false
+  polling_intensity: 1
+zwave.kitchen_spots:
+  ignored: false
+  polling_intensity: 1
+zwave.living_room:
+  ignored: false
+  polling_intensity: 1
+zwave.main_kitchen_light:
+  ignored: false
+  polling_intensity: 1
+zwave.office:
+  ignored: false
+  polling_intensity: 1
+zwave.pendants:
+  ignored: false
+  polling_intensity: 1
+zwave.stairs:
+  ignored: false
+  polling_intensity: 1
+zwave.tv_room_ceiling:
+  ignored: false
+  polling_intensity: 1
+zwave.upstairs_hall:
+  ignored: false
+  polling_intensity: 1
