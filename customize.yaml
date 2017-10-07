@@ -4,6 +4,9 @@ binary_sensor.honu_hub:
   hidden: true
 remote.honu_harmony_hub:
   hidden: true
+switch.holiday_lights:
+  icon: mdi:pine-tree
+  emulated_hue: true
 light.main_kitchen_light_level:
   friendly_name: "Main Kitchen Light"
   emulated_hue: true

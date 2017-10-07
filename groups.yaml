@@ -6,7 +6,8 @@ default_view:
     - alarm_control_panel.house_alarm
     - group.general_scenes
     - group.ecobee_card
-    - lock.front_door_lock_locked
+    - group.ring_card
+    - group.lock_card
 
 lights_view:
   name: Lights
@@ -80,6 +81,20 @@ ecobee_card:
   name: Ecobee
   entities:
     - climate.my_ecobee3
+ring_card:
+  name: Ring Doorbell
+  entities:
+    - sensor.ring_front_door_last_motion
+    - sensor.ring_front_door_last_ding
+    - sensor.ring_front_door_battery
+lock_card:
+  name: Front Door Lock
+  entities:
+    - lock.front_door_lock_locked
+    - sensor.lock_front_door_battery
+    - sensor.lock_front_door_status
+    - sensor.front_door_lock_alarm_type
+    - sensor.front_door_lock_alarm_level
 
 indoor_temps:
   name: Indoor Temps
@@ -165,9 +180,11 @@ other_lights:
   name: Other Lights
   entities:
     - light.dining_room_level
+    - light.front_bathroom_level
     - light.living_room_level
     - light.office_level
     - switch.exterior_switch
+    - switch.holiday_lights
     - switch.front_hall_switch
     - light.tv_room_ceiling_level
     

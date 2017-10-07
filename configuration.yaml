@@ -71,6 +71,10 @@ remote:
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
 
+ring:
+  username: !secret ring_username
+  password: !secret ring_password
+
 # Enables support for tracking state changes over time
 history:
   exclude:
@@ -108,6 +112,7 @@ history:
       - scene
  
 recorder:
+  db_url: !secret dburl
   exclude:
     entities:
       - sensor.google_wifi_new_version
@@ -139,6 +144,13 @@ zwave:
   usb_path: /dev/zwave
   network_key: !secret zwave_network_key 
   polling_interval: 61000
+  device_config: !include zwave_device_config.yaml
+
+binary_sensor:
+  - platform: ring
+    monitored_conditions:
+      - ding
+      - motion
 
 sensor:
 #  - platform: yr
@@ -173,12 +185,25 @@ sensor:
       - weather_2n
       - weather_3d
       - weather_3n
-
+  - platform: ring
+    monitored_conditions:
+      - battery
+      - last_ding
+      - last_motion
   - platform: command_line
     name: SSL Cert Expiry
     unit_of_measurement: days
     scan_interval: 10800
     command: "ssl-cert-check -b -c /etc/letsencrypt/live/4445h.duckdns.org/cert.pem | awk '{ print $NF }'"
+  - platform: template
+    sensors:
+      lock_front_door_battery
+        friendly_name: 'Front Door Lock Battery'
+        value_template: '{{ states.zwave.front_door_lock.attributes.battery_level }}'
+        unit_of_measurement: '%'
+      lock_front_door_status  
+        friendly_name: 'Front Door Lock Status'
+        value_template: '{{ states.lock.front_door_lock_locked.attributes.lock_status }}'
 
 emulated_hue:
   expose_by_default: false
@@ -187,6 +212,10 @@ emulated_hue:
 #    - switch
 #    - group
 #    - scene
+
+switch:
+  - platform: tplink
+    host: 192.168.86.112
 
 ecobee:
   api_key: !secret ecobee_api_key
