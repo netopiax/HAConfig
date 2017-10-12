@@ -4,8 +4,59 @@
   - event: sunrise
     platform: sun
   action:
-    entity_id: switch.exterior_switch
-    service: switch.turn_off
+    service: homeassistant.turn_off
+    entity_id: 
+      - switch.exterior_switch
+      - input_boolean.night_mode
+
+- alias: 'ALARM Home'
+  id: 'alarm_home'
+  trigger:
+    - platform: state
+      entity_id: 
+        - sensor.back_door_access_control
+        - sensor.front_door_closed_access_control
+      to: '22'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.house_alarm
+      state: armed_home
+  action:
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.house_alarm
+
+- alias: 'ALARM Away'
+  id: 'alarm_away'
+  trigger:
+    - platform: state
+      entity_id: 
+        - sensor.back_door_access_control
+        - sensor.front_door_closed_access_control
+      to: '22'
+    - platform: state
+      entity_id:
+        - binary_sensor.hallway_motion_sensor
+        - binary_sensor.living_room_motion_sensor
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.house_alarm
+      state: armed_away
+  action:
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.house_alarm
+
+- alias: 'Alarm notification'
+  id: 'alarm_notify'
+  trigger:
+    - platform: state
+      entity_id:
+        - alarm_control_panel.house_alarm
+      to: 'triggered'
+  action:
+    - service: notify.tgnotify
+      data:
+        message: 'ALARM Armed: A door was opened or motion detected!'
 
 - alias: 'Exterior on 30 min before sunset'
   id: '1504752058793'
@@ -42,32 +93,28 @@
   trigger:
     platform: state
     entity_id: switch.exterior_switch
-    from: 'on'
     to: 'off'
     for:
       minutes: 7
   condition:  
     condition: template
-    value_template: '{{ states.sun.below_horizon == true }}'
+    value_template: '{{ states.sun.sun.state == "below_horizon" }}'
   action:
     service: switch.turn_on
     entity_id: switch.exterior_switch
 
-- alias: 'Door unlocked night - lights on'
+- alias: 'Front door open night - lights on'
   id: '1235'
   trigger:
     platform: state
-    entity_id: lock.front_door_lock_locked
-    from: 'locked'
-    to: 'unlocked'
+    entity_id: binary_sensor.front_door_security
+    to: 'Open'
   condition:
     condition: template
-    value_template: '{{ states.sun.below_horizon == true }}'
+    value_template: '{{ states.sun.sun.state == "below_horizon" }}'
   action:
-    service: homeassistant.turn_on
-    entity_id:
-      - light.main_kitchen_light_level
-      - light.upstairs_hall_level
+    service: scene.turn_on
+    entity_id: scene.kitchen_dim
         
 - alias: 'Late night lights off, weekday'
   id: '1236'
@@ -100,21 +147,32 @@
       - switch.front_hall_switch
       - switch.holiday_lights
 
-- alias: "Persistent notification for lock low battery"
+- alias: "Notification for Ring battery"
+  id: '3458'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ring_front_door_battery
+    below: 20
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '3458'
+      message: "The Ring battery is at {% sensor.ring_front_door_battery %} percent"
+      title: "Ring Battery"
+
+- alias: "Notification for lock low battery"
   id: '3456'
   trigger:
     platform: state
     entity_id: lock.front_door_lock_locked
-    from: 'locked'
-    to: 'unlocked'
   condition:
     condition: template
-    value_template: '{{ zwave.front_door_lock.battery_level < 30 }}'
+    value_template: '{{ sensor.lock_front_door_battery < 30 }}'
   action:
     service: persistent_notification.create
     data:
       notification_id: '3456'
-      message: "The front door lock is at {% zwave.front_door_lock.battery_level %} percent"
+      message: "The front door lock is at {% sensor.lock_front_door_battery %} percent"
       title: "Front Door Lock Battery"
 
 - alias: 'SSL expiry notification'
@@ -163,3 +221,64 @@
     - service: frontend.set_theme
       data:
         name: 'default'
+
+- alias: 'Hallway motion'
+  id: 'hallway_motion'
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.hallway_motion_sensor
+      to: 'on'
+  action:
+    service: scene.turn_on
+    data_template:
+      entity_id: >
+        {% if is_state("input_boolean.night_mode", "on") -%}
+        scene.hallway_dim
+        {%- else -%}
+        scene.hallway_bright
+        {%- endif %}
+
+- alias: 'Hallway motion over'
+  id: 'hallway_motion_over'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.hallway_motion_sensor
+    to: 'off'
+    for: 
+      minutes: 3
+  action:
+    service: scene.turn_on
+    entity_id: scene.hallway_dark
+
+- alias: 'Bathroom motion'
+  id: 'bathroom_motion'
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.bathroom_motion_sensor
+      to: 'on'
+  action:
+    service: scene.turn_on
+    data_template:
+      entity_id: >
+        {% if is_state("input_boolean.night_mode", "on") -%}
+        scene.master_bath_dim
+        {%- else -%}
+        scene.master_bath_bright
+        {%- endif %}
+
+- alias: 'Bathroom motion over'
+  id: 'bathroom_motion_over'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.bathroom_motion_sensor
+    to: 'off'
+    for:
+      minutes: 5
+  action:
+    service: scene.turn_on
+    entity_id: scene.master_bath_dark
+

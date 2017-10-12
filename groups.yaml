@@ -8,6 +8,7 @@ default_view:
     - group.ecobee_card
     - group.ring_card
     - group.lock_card
+    - group.security_card
 
 lights_view:
   name: Lights
@@ -39,10 +40,8 @@ config_view:
   view: true
   icon: mdi:settings
   entities:
-    - lock.front_door_lock_locked
-    - input_select.current_theme
     - sensor.ssl_cert_expiry
-    - group.automation_list
+    - group.all_automations
     - group.google_wifi_card
     - group.system_monitor_card
 
@@ -96,6 +95,19 @@ lock_card:
     - sensor.front_door_lock_alarm_type
     - sensor.front_door_lock_alarm_level
 
+security_card:
+  name: Security Sensors
+  entities:
+    - sensor.front_door_open
+    - sensor.back_door_open
+    - binary_sensor.living_room_motion_sensor
+    - binary_sensor.hallway_motion_sensor
+    - binary_sensor.bathroom_motion_sensor
+    - binary_sensor.my_ecobee3_occupancy
+    - binary_sensor.office_occupancy
+    - binary_sensor.bedroom_occupancy
+    - binary_sensor.downstairs_occupancy
+
 indoor_temps:
   name: Indoor Temps
   icon: mdi:home
@@ -121,6 +133,7 @@ weather_overview:
 general_scenes:
   name: General Scenes
   entities:
+    - input_boolean.night_mode
     - scene.morning
     - scene.bye_felicia
     - scene.evening
@@ -175,18 +188,19 @@ tv_room_lights:
   entities:
     - light.hue_white_right
     - light.hue_white_left
+    - light.tv_room_ceiling_level
 
 other_lights:
   name: Other Lights
   entities:
     - light.dining_room_level
-    - light.front_bathroom_level
     - light.living_room_level
     - light.office_level
+    - light.front_bathroom_level
+    - light.master_bathroom_level
     - switch.exterior_switch
     - switch.holiday_lights
     - switch.front_hall_switch
-    - light.tv_room_ceiling_level
     
 daily_forecast:
   name: Daily Forecast

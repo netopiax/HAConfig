@@ -13,6 +13,36 @@
       light.main_kitchen_light_level: off
       light.kitchen_spots_level: off
       switch.front_hall_switch: off
+      input_boolean.night_mode: off
+
+  - name: master_bath_bright
+    entities:
+      light.master_bathroom_level:
+        state: on
+        brightness_pct: 100
+  - name: master_bath_dim
+    entities:
+      light.master_bathroom_level:
+        state: on
+        brightness_pct: 10
+  - name: master_bath_dark
+    entities:
+      light.master_bathroom_level: off
+
+  - name: hallway_bright
+    entities:
+      light.upstairs_hall_level:
+        state: on
+        brightness_pct: 100
+  - name: hallway_dim
+    entities:
+      light.upstairs_hall_level:
+        state: on
+        brightness_pct: 25
+  - name: hallway_dark
+    entities:
+      light.upstairs_hall_level:
+        state: off
   - name: tv_room_bright
     entities:
       light.tv_room_ceiling_level:
@@ -24,11 +54,11 @@
       light.hue_white_left:
         state: on
         brightness_pct: 100
-
   - name: tv_room_medium
     entities:
       light.tv_room_ceiling_level:
-        state: off
+        state: on
+        brightness_pct: 10
       light.hue_white_right:
         state: on
         brightness_pct: 100
@@ -94,6 +124,22 @@
         state: on
         brightness_pct: 100
 
+  - name: kitchen_medium
+    entities:
+      light.main_kitchen_light_level: 
+        state: on
+        brightness_pct: 75
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 75
+      light.pendants_level:
+        state: on
+        brightness_pct: 75
+      light.dining_room_level:
+        state: on
+        brightness_pct: 50
+
+
   - name: kitchen_dim
     entities:
       light.main_kitchen_light_level: 
@@ -131,7 +177,9 @@
       light.hue_white_right: off
       light.main_kitchen_light_level: off
       light.kitchen_spots_level: off
-      lock.front_door_lock_locked: locked
+      light.master_bathroom_level: off
+      light.front_bathroom_level: off
+      input_boolean.night_mode: on
     
   - name: reading
     entities:
@@ -152,6 +200,7 @@
       light.hue_white_right: off
       light.main_kitchen_light_level: off
       light.kitchen_spots_level: off
+      input_boolean.night_mode: on
 
   - name: sunset
     entities:
@@ -171,10 +220,13 @@
       light.dining_room_level: 
         state: on
         brightness_pct: 75
-      light.main_kitchen_light_level: on
+      light.main_kitchen_light_level: 
+        state: on
+        brightness_pct: 75
       light.kitchen_spots_level:
         state: on
         brightness_pct: 75
+      input_boolean.night_mode: off
      
   - name: morning
     entities:
@@ -184,23 +236,28 @@
       light.pendants_level:
         state: on
         brightness_pct: 75
-      light.upstairs_hall_level:
-        state: on
-        brightness_pct: 55
     
   - name: tv_time
     entities:
       light.dining_room_level: off
       light.kitchen_spots_level: off
       light.main_kitchen_light_level: off
+      light.pendants_level: off
       light.upstairs_hall_level:
         state: on
         brightness_pct: 100
       light.stairs_level:
         state: on
         brightness_pct: 100
-      light.hue_white_left: on
-      light.hue_white_right: on
+      light.hue_white_left:
+        state: on
+        brightness_pct: 100
+      light.hue_white_right:
+        state: on
+        brightness_pct: 100
+      light.tv_room_ceiling_level:
+        state: on
+        brightness_pct: 25
     
   - name: bedtime
     entities:
@@ -225,3 +282,4 @@
       light.charlie_lamp_level:
         state: on
         brightness_pct: 100
+      input_boolean.night_mode: on

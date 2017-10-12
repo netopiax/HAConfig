@@ -1,21 +1,12 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
   name: Home
-  # Location required to calculate the time the sun rises and sets
   latitude: !secret latitude 
   longitude: !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: !secret elevation
-  # metric for Metric, imperial for Imperial
   unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/Los_Angeles
   customize: !include customize.yaml
 
-# Show links to resources in log and frontend
-# introduction:
-
-# Enables the frontend
 frontend:
   themes: !include_dir_merge_named themes/
 
@@ -43,6 +34,11 @@ intent_script:
       type: plain
       text: "Later, Hater"
 
+input_boolean:
+  night_mode:
+    name: Night Mode
+    initial: off
+    icon: mdi:weather-night
 
 http:
   # Uncomment this to add a password (recommended!)
@@ -75,6 +71,17 @@ ring:
   username: !secret ring_username
   password: !secret ring_password
 
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_api
+    allowed_chat_ids:
+      - !secret telegram_chat_id1
+
+notify:
+  - name: tgnotify
+    platform: telegram
+    chat_id: !secret telegram_chat_id1
+
 # Enables support for tracking state changes over time
 history:
   exclude:
@@ -104,15 +111,16 @@ history:
       - sensor.average_load_15m
       - sensor.ipv4_address_enxb827ebb89b75
       - sensor.since_last_boot
-      - binary_sensor.front_relay_presence
-      - sun.sun
     domains:
+      - group
       - zwave
       - automation
       - scene
  
 recorder:
   db_url: !secret dburl
+  purge_interval: 1
+  purge_keep_days: 5
   exclude:
     entities:
       - sensor.google_wifi_new_version
@@ -128,7 +136,6 @@ recorder:
       - sensor.since_last_boot
     domains:
       - group 
-  purge_days: 7
 
 # View all events in a logbook
 logbook:
@@ -143,7 +150,6 @@ sun:
 zwave:
   usb_path: /dev/zwave
   network_key: !secret zwave_network_key 
-  polling_interval: 61000
   device_config: !include zwave_device_config.yaml
 
 binary_sensor:
@@ -197,20 +203,29 @@ sensor:
     command: "ssl-cert-check -b -c /etc/letsencrypt/live/4445h.duckdns.org/cert.pem | awk '{ print $NF }'"
   - platform: template
     sensors:
-      lock_front_door_battery
-        friendly_name: 'Front Door Lock Battery'
+      lock_front_door_battery:
+        friendly_name: 'Lock Battery'
         value_template: '{{ states.zwave.front_door_lock.attributes.battery_level }}'
         unit_of_measurement: '%'
-      lock_front_door_status  
-        friendly_name: 'Front Door Lock Status'
+        entity_id: zwave.front_door_lock
+      lock_front_door_status: 
+        friendly_name: 'Lock Status'
         value_template: '{{ states.lock.front_door_lock_locked.attributes.lock_status }}'
+        entity_id: lock.front_door_lock_locked
+      front_door_open:
+        friendly_name: 'Front Door Security'
+        value_template: '{% if is_state("sensor.front_door_closed_access_control", "23") %}Closed{% else %}Open{% endif %}'
+        entity_id: sensor.front_door_closed_access_control
+      back_door_open:
+        friendly_name: 'Back Door Security'
+        value_template: '{% if is_state("sensor.back_door_access_control", "23") %}Closed{% else %}Open{% endif %}'
+        entity_id: sensor.back_door_access_control
 
 emulated_hue:
   expose_by_default: false
 #  exposed_domains:
 #    - light
 #    - switch
-#    - group
 #    - scene
 
 switch:
@@ -224,6 +239,12 @@ alarm_control_panel:
   - platform: manual
     name: "House Alarm"
     pending_time: 60
+    armed_home:
+      pending_time: 0
+    armed_away:
+      pending_time: 20
+    triggered:
+      pending_time: 0
 
 # Text to speech
 tts:

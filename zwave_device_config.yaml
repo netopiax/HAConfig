@@ -6,22 +6,22 @@ light.colin_lamp_level:
   polling_intensity: 1
 light.dining_room_level:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.exterior:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.front_hall:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.kitchen_spots:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.living_room:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.main_kitchen_light:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.office:
   ignored: false
   polling_intensity: 1
@@ -30,10 +30,16 @@ zwave.pendants:
   polling_intensity: 1
 zwave.stairs:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.tv_room_ceiling:
   ignored: false
-  polling_intensity: 1
+  polling_intensity: 0
 zwave.upstairs_hall:
+  ignored: false
+  polling_intensity: 0
+light.pendants_level:
+  ignored: false
+  polling_intensity: 1
+light.office_level:
   ignored: false
   polling_intensity: 1

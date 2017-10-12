@@ -7,6 +7,12 @@ remote.honu_harmony_hub:
 switch.holiday_lights:
   icon: mdi:pine-tree
   emulated_hue: true
+light.front_bathroom_level:
+  emulated_hue: true
+  friendly_name: "Front Bathroom"
+light.master_bathroom_level:
+  emulated_hue: true
+  friendly_name: "Master Bathroom"
 light.main_kitchen_light_level:
   friendly_name: "Main Kitchen Light"
   emulated_hue: true
