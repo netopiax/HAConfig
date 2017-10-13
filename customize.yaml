@@ -9,73 +9,73 @@ switch.holiday_lights:
   emulated_hue: true
 light.front_bathroom_level:
   emulated_hue: true
-  friendly_name: "Front Bathroom"
+  friendly_name: Front Bathroom
 light.master_bathroom_level:
   emulated_hue: true
-  friendly_name: "Master Bathroom"
+  friendly_name: Master Bathroom
 light.main_kitchen_light_level:
-  friendly_name: "Main Kitchen Light"
+  friendly_name: Main Kitchen Light
   emulated_hue: true
 light.kitchen_spots_level:
   emulated_hue: true
-  friendly_name: "Kitchen Spots"
+  friendly_name: Kitchen Spots
 light.tv_room_ceiling_level:
   emulated_hue: true
-  friendly_name: "TV Room Ceiling"
+  friendly_name: TV Room Ceiling
 light.living_room_level:
   emulated_hue: true
   icon: mdi:lamp
-  friendly_name: "Living Room"
+  friendly_name: Living Room
 light.colin_lamp_level:
   emulated_hue: true
   icon: mdi:lamp
-  friendly_name: "Colin Lamp"
+  friendly_name: Colin Lamp
 light.charlie_lamp_level:
   emulated_hue: true
   icon: mdi:lamp
-  friendly_name: "Charlie Lamp"
+  friendly_name: Charlie Lamp
 light.office_level:
   emulated_hue: true
-  friendly_name: "Office"
+  friendly_name: Office
   icon: mdi:lamp
 light.dining_room_level:
   emulated_hue: true
   icon: mdi:ceiling-light
-  friendly_name: "Dining Room"
+  friendly_name: Dining Room
 light.pendants_level:
   icon: mdi:ceiling-light
   emulated_hue: true
-  friendly_name: "Pendants"
+  friendly_name: Pendants
 light.hue_white_left:
   emulated_hue: true
   icon: mdi:lamp
-  friendly_name: "TV Room Left"
+  friendly_name: TV Room Left
 light.hue_white_right:
   emulated_hue: true
   icon: mdi:lamp
-  friendly_name: "TV Room Right"
+  friendly_name: TV Room Right
 light.stairs_level:
   emulated_hue: true
-  friendly_name: "Stairs"
+  friendly_name: Stairs
 light.upstairs_hall_level:
   emulated_hue: true
-  friendly_name: "Upstairs Hall"
+  friendly_name: Upstairs Hall
 lock.front_door_lock_locked:
-  friendly_name: "Front Door"
+  friendly_name: Front Door
 switch.front_hall_switch:
   emulated_hue: true
-  friendly_name: "Front Hall"
+  friendly_name: Front Hall
   icon: mdi:ceiling-light
 switch.exterior_switch:
   emulated_hue: true
-  friendly_name: "Exterior"
+  friendly_name: Exterior
   icon: mdi:home
 scene.bye_felicia:
   icon: mdi:emoticon-cool
-  friendly_name: "Bye Felicia"
+  friendly_name: Bye Felicia
 scene.goodnight:
   icon: mdi:sleep
-  friendly_name: "Goodnight"
+  friendly_name: Goodnight
 scene.reading:
   icon: mdi:hotel
   friendly_name: Reading
@@ -87,7 +87,7 @@ scene.morning:
   friendly_name: Morning
 scene.tv_time:
   icon: mdi:television
-  friendly_name: "TV Time"
+  friendly_name: TV Time
 scene.bedtime:
   icon: mdi:stairs
   friendly_name: Bedtime
@@ -143,32 +143,40 @@ group.automation_list:
   emulated_hue: false
 group.kitchen_lights:
   emulated_hue: true
-  emulated_hue_name: "Kitchen"
+  emulated_hue_name: Kitchen
 group.all_lights:
   emulated_hue: true
-  emulated_hue_name: "All Lights"
+  emulated_hue_name: All Lights
 group.bedroom_lights:
   emulated_hue: true
-  emulated_hue_name: "Bedroom"
+  emulated_hue_name: Bedroom
 group.pathway_lights:
   emulated_hue: true
-  emulated_hue_name: "Pathway"
+  emulated_hue_name: Pathway
 group.tv_room_lights:
   emulated_hue: true
-  emulated_hue_name: "TV Room"
+  emulated_hue_name: TV Room
 sensor.google_wifi_uptime:
   icon: mdi:cup
-  friendly_name: "Uptime"
+  friendly_name: Uptime
   emulated_hue: false
 sensor.google_wifi_status:
   icon: mdi:access-point
-  friendly_name: "Status"
+  friendly_name: Status
   emulated_hue: false
 sensor.google_wifi_new_version:
   icon: mdi:calendar-question
-  friendly_name: "New Version"
+  friendly_name: New Version
 sensor.google_wifi_local_ip:
   icon: mdi:lan-connect
-  friendly_name: "Local IP"
+  friendly_name: Local IP
 sensor.google_wifi_last_restart:
-  friendly_name: "Last Restart"
+  friendly_name: Last Restart
+binary_sensor.back_door_sensor:
+  hidden: true
+binary_sensor.front_door_closed_sensor:
+  hidden: true
+binary_sensor.garage_sensor:
+  hidden: true
+binary_sensor.garage_open:
+  icon: mdi:garage

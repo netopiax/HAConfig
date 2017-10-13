@@ -98,8 +98,9 @@ lock_card:
 security_card:
   name: Security Sensors
   entities:
-    - sensor.front_door_open
-    - sensor.back_door_open
+    - binary_sensor.front_door_open
+    - binary_sensor.back_door_open
+    - binary_sensor.garage_open
     - binary_sensor.living_room_motion_sensor
     - binary_sensor.hallway_motion_sensor
     - binary_sensor.bathroom_motion_sensor

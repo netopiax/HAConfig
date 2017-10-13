@@ -1,0 +1,61 @@
+
+- alias: 'Hallway motion'
+  id: 'hallway_motion'
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.hallway_motion_sensor
+      to: 'on'
+  action:
+    service: scene.turn_on
+    data_template:
+      entity_id: >
+        {% if is_state("input_boolean.night_mode", "on") -%}
+        scene.hallway_dim
+        {%- else -%}
+        scene.hallway_bright
+        {%- endif %}
+
+- alias: 'Hallway motion over'
+  id: 'hallway_motion_over'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.hallway_motion_sensor
+    to: 'off'
+    for: 
+      minutes: 3
+  action:
+    service: scene.turn_on
+    entity_id: scene.hallway_dark
+
+- alias: 'Bathroom motion'
+  id: 'bathroom_motion'
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.bathroom_motion_sensor
+      to: 'on'
+  action:
+    service: scene.turn_on
+    data_template:
+      entity_id: >
+        {% if is_state("input_boolean.night_mode", "on") -%}
+        scene.master_bath_dim
+        {%- else -%}
+        scene.master_bath_bright
+        {%- endif %}
+
+- alias: 'Bathroom motion over'
+  id: 'bathroom_motion_over'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.bathroom_motion_sensor
+    to: 'off'
+    for:
+      minutes: 5
+  action:
+    service: scene.turn_on
+    entity_id: scene.master_bath_dark
+

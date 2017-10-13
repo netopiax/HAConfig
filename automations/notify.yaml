@@ -1,0 +1,54 @@
+
+- alias: "Notification for Ring battery"
+  id: '3458'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ring_front_door_battery
+    below: 20
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '3458'
+      message: "The Ring battery is at {% sensor.ring_front_door_battery %} percent"
+      title: "Ring Battery"
+
+- alias: "Notification for lock low battery"
+  id: '3456'
+  trigger:
+    platform: state
+    entity_id: lock.front_door_lock_locked
+  condition:
+    condition: template
+    value_template: '{{ sensor.lock_front_door_battery < 30 }}'
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '3456'
+      message: "The front door lock is at {% sensor.lock_front_door_battery %} percent"
+      title: "Front Door Lock Battery"
+
+- alias: 'SSL expiry notification'
+  id: 'ssl_exp'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.ssl_cert_expiry
+    below: 21
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '4567'
+      message: 'Warning - SSL certificate expires in {% sensor.ssl_cert_expiry %} days and has not been automatically renewed'
+      title: "SSL Certificate Expiring"
+
+- alias: 'HA Update Notification'
+  id: '1111'
+  trigger:
+    - platform: state
+      entity_id: updater.updater
+  action:
+    service: persistent_notification.create
+    data:
+      notification_id: '1111'
+      message: 'There is a new Home Assistant release available'
+      title: 'Update Available'
+
