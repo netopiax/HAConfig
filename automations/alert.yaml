@@ -4,7 +4,7 @@
   trigger:
     - platform: state
       entity_id: binary_sensor.garage_door_open
-      to: 'open'
+      to: 'on'
       for:
         minutes: 10
   action:

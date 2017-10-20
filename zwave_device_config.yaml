@@ -26,3 +26,36 @@ light.upstairs_hall_level:
   ignored: false
   polling_intensity: 1
   refresh_value: true
+sensor.back_door_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.back_door_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.bathroom_motion_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.bathroom_motion_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.front_door_closed_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.front_door_closed_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.hallway_motion_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.hallway_motion_alarm_type:
+  ignored: true
+  polling_intensity: 0
+sensor.hallway_motion_power_management:
+  ignored: true
+  polling_intensity: 0
+sensor.garage_alarm_level:
+  ignored: true
+  polling_intensity: 0
+sensor.garage_alarm_type:
+  ignored: true
+  polling_intensity: 0

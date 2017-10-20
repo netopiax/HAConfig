@@ -92,8 +92,8 @@ lock_card:
     - lock.front_door_lock_locked
     - sensor.lock_front_door_battery
     - sensor.lock_front_door_status
-    - sensor.front_door_lock_alarm_type
-    - sensor.front_door_lock_alarm_level
+#   - sensor.front_door_lock_alarm_type
+#   - sensor.front_door_lock_alarm_level
 
 security_card:
   name: Security Sensors
@@ -133,8 +133,10 @@ weather_overview:
 
 general_scenes:
   name: General Scenes
+  control: hidden
   entities:
     - input_boolean.night_mode
+    - input_boolean.vacation_mode
     - scene.morning
     - scene.bye_felicia
     - scene.evening

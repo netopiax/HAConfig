@@ -37,16 +37,19 @@ intent_script:
         entity_id: scene.bye_felicia
     speech:
       type: plain
-      text: "Later, Hater"
+      text: "Later Hater"
 
 input_boolean:
   night_mode:
     name: Night Mode
     initial: off
     icon: mdi:weather-night
+  vacation_mode:
+    name: Vacation Mode
+    initial: off
+    icon: mdi:airplane
 
 http:
-  # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
   ip_ban_enabled: True
   login_attempts_threshold: 3
@@ -69,8 +72,6 @@ remote:
   - platform: harmony
     name: Harmony Hub
     activity: Watch TV
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
 
 ring:
   username: !secret ring_username
@@ -127,6 +128,7 @@ history:
       - sensor.front_door_lock_status
       - sensor.front_door_lock_alarm_type
     domains:
+      - alarm_control_panel
       - binary_sensor
       - light
       - switch
@@ -158,6 +160,15 @@ logbook:
     domains:
       - zwave
       - sensor
+      - climate
+      - group
+  include:
+    domains:
+      - binary_sensor
+      - alarm_control_panel
+      - light
+      - switch
+      - automation
 
   # Track the sun
 sun:

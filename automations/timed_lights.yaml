@@ -1,4 +1,3 @@
-
 - alias: 'Exterior on 30 min before sunset'
   id: '1504752058793'
   trigger:
@@ -51,8 +50,13 @@
     entity_id: binary_sensor.front_door_security
     to: 'Open'
   condition:
-    condition: template
-    value_template: '{{ states.sun.sun.state == "below_horizon" }}'
+    condition: and
+    conditions:
+      - condition: template
+        value_template: '{{ states.sun.sun.state == "below_horizon" }}'
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'false'
   action:
     service: scene.turn_on
     entity_id: scene.kitchen_dim
@@ -87,6 +91,19 @@
       - light.office_level
       - switch.front_hall_switch
       - switch.holiday_lights
+
+- alias: 'Vacation mode lights off'
+  id: 'vacation_lights_off'
+  trigger:
+    platform: time
+    at: '23:00:00'
+  condition:
+    condition: state
+    entity_id: input_boolean.vacation_mode
+    state: 'on'
+  action:
+    service: scene.turn_on
+    entity_id: scene.goodnight
 
 - alias: 'Sunrise exterior off'
   id: '1504752058792'

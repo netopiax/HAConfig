@@ -1,47 +1,42 @@
 - alias: 'Disarm alarm by lock keypad'
   id: 'disarm_keypad'
   trigger:
-    - platform: state
-      entity_id: sensor.front_door_lock_alarm_type
-      to: '19'
+    platform: state
+    entity_id: sensor.front_door_lock_alarm_type
+    to: '19'
   action:
     - service: alarm_control_panel.alarm_disarm
       entity_id: alarm_control_panel.house_alarm
+    - service: homeassistant.turn_off
+      entity_id: input_boolean.vacation_mode
+      #also never be in vacation mode when we're home
 
 - alias: 'ALARM Home'
   id: 'alarm_home'
   trigger:
-    - platform: state
-      entity_id: 
+    platform: state
+    entity_id: 
         - sensor.back_door_access_control
         - sensor.front_door_closed_access_control
         - sensor.garage_access_control
-      to: '22'
-    - platform: state
-      entity_id:
-        - sensor.back_door_burglar
-        - sensor.front_door_closed_burglar
-        - sensor.garage_burglar
-        - sensor.living_room_motion_burglar
-        - sensor.hallway_motion_burglar
-      to: '3'
+    to: '22'
   condition:
-    - condition: state
-      entity_id: alarm_control_panel.house_alarm
-      state: armed_home
+    condition: state
+    entity_id: alarm_control_panel.house_alarm
+    state: armed_home
   action:
-    - service: alarm_control_panel.alarm_trigger
-      entity_id: alarm_control_panel.house_alarm
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.house_alarm
 
 - alias: 'ALARM Away door'
   id: 'alarm_away_door'
   trigger:
-    - platform: state
-      entity_id: 
-        - sensor.back_door_access_control
-        - sensor.front_door_closed_access_control
-        - sensor.garage_access_control
-      to: '22'
+    platform: state
+    entity_id: 
+      - sensor.back_door_access_control
+      - sensor.front_door_closed_access_control
+      - sensor.garage_access_control
+    to: '22'
   condition:
     condition: or
     conditions:
@@ -61,15 +56,15 @@
 - alias: 'ALARM Away motion'
   id: 'alarm_away_motion'
   trigger:
-    - platform: state
-      entity_id:
-        - binary_sensor.hallway_motion_sensor
-        - binary_sensor.living_room_motion_sensor
-      to: 'on'
+    platform: state
+    entity_id:
+      - binary_sensor.hallway_motion_sensor
+      - binary_sensor.living_room_motion_sensor
+    to: 'on'
   condition:
-    - condition: state
-      entity_id: alarm_control_panel.house_alarm
-      state: armed_away
+    condition: state
+    entity_id: alarm_control_panel.house_alarm
+    state: armed_away
   action:
     - service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.house_alarm
@@ -81,14 +76,14 @@
 - alias: 'ALARM Tamper'
   id: 'alarm_tamper'
   trigger:
-    - platform: state
-      entity_id:
-        - sensor.back_door_burglar
-        - sensor.front_door_closed_burglar
-        - sensor.garage_burglar
-        - sensor.living_room_motion_burglar
-        - sensor.hallway_motion_burglar
-      to: '3'
+    platform: state
+    entity_id:
+      - sensor.back_door_burglar
+      - sensor.front_door_closed_burglar
+      - sensor.garage_burglar
+      - sensor.living_room_motion_burglar
+      - sensor.hallway_motion_burglar
+    to: '3'
   condition:
     condition: or
     conditions:
@@ -105,16 +100,13 @@
       data:
         message: 'ALARM Info! Tamper detection'
 
-
 - alias: 'Alarm notification'
   id: 'alarm_notify'
   trigger:
-    - platform: state
-      entity_id:
-        - alarm_control_panel.house_alarm
-      to: 'triggered'
+    platform: state
+    entity_id: alarm_control_panel.house_alarm
+    to: 'triggered'
   action:
-    - service: notify.tgnotify
-      data:
-        message: 'ALARM Triggered!'
-
+    service: notify.tgnotify
+    data:
+      message: 'ALARM Triggered!'
