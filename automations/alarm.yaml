@@ -1,5 +1,6 @@
 - alias: 'Disarm alarm by lock keypad'
   id: 'disarm_keypad'
+  initial_state: true
   trigger:
     platform: state
     entity_id: sensor.front_door_lock_alarm_type
@@ -13,6 +14,7 @@
 
 - alias: 'ALARM Home'
   id: 'alarm_home'
+  initial_state: true
   trigger:
     platform: state
     entity_id: 
@@ -28,14 +30,14 @@
     service: alarm_control_panel.alarm_trigger
     entity_id: alarm_control_panel.house_alarm
 
-- alias: 'ALARM Away door'
+- alias: 'ALARM door'
   id: 'alarm_away_door'
+  initial_state: true
   trigger:
     platform: state
     entity_id: 
       - sensor.back_door_access_control
       - sensor.front_door_closed_access_control
-      - sensor.garage_access_control
     to: '22'
   condition:
     condition: or
@@ -53,13 +55,31 @@
       data:
         message: 'ALARM Info! armed - door opened'
 
+- alias: 'ALARM away garage instant notify'
+  id: 'alarm_away_garage_notify'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: sensor.garage_access_control
+    to: '22'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.house_alarm
+    state: armed_away
+  action:
+    service: notify.tgnotify
+    data:
+      message: 'ALARM Info! Garage door opened when alarm armed_away'
+
 - alias: 'ALARM Away motion'
   id: 'alarm_away_motion'
+  initial_state: true
   trigger:
     platform: state
     entity_id:
-      - binary_sensor.hallway_motion_sensor
+#     - binary_sensor.hallway_motion_sensor
       - binary_sensor.living_room_motion_sensor
+      - binary_sensor.downstairs_motion_sensor
     to: 'on'
   condition:
     condition: state
@@ -72,9 +92,9 @@
       data:
         message: 'ALARM Info! armed_away - motion'
 
-
 - alias: 'ALARM Tamper'
   id: 'alarm_tamper'
+  initial_state: true
   trigger:
     platform: state
     entity_id:
@@ -100,13 +120,29 @@
       data:
         message: 'ALARM Info! Tamper detection'
 
-- alias: 'Alarm notification'
+- alias: 'Alarm triggered'
   id: 'alarm_notify'
   trigger:
     platform: state
     entity_id: alarm_control_panel.house_alarm
     to: 'triggered'
   action:
-    service: notify.tgnotify
-    data:
-      message: 'ALARM Triggered!'
+    - service: notify.tgnotify
+      data:
+        message: 'ALARM Triggered!'
+    - service: switch.turn_on
+      data:
+        entity_id: 
+          - switch.siren_switch
+          - switch.front_hall_switch
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - light.dining_room_level
+          - light.main_kitchen_light_level
+          - light.living_room_level
+          - light.upstairs_hall_level
+          - light.stairs_level
+          - light.tv_room_ceiling_level
+          - light.office_level
+        brightness_pct: 100

@@ -1,0 +1,143 @@
+  - name: bye_felicia
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: off
+      light.colin_lamp_level: off
+      light.charlie_lamp_level: off
+      light.pendants_level: off
+      light.dining_room_level: off
+      light.tv_room_ceiling_level: off
+      light.hue_white_left: off
+      light.hue_white_right: off
+      light.main_kitchen_light_level: off
+      light.kitchen_spots_level: off
+      switch.front_hall_switch: off
+      input_boolean.night_mode: off
+
+  - name: time_for_work
+    entities:
+      light.office_level: 
+        state: on
+        brightness_pct: 100
+      light.stairs_level:
+        state: on
+        brightness_pct: 100
+      switch.office_air:
+        state: on
+      light.kitchen_spots_level: off
+      light.main_kitchen_light_level: off
+      light.pendants_level: off
+      light.dining_room_level: off
+      light.living_room_level: off
+      input_boolean.night_mode: off
+       
+  - name: goodnight
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: off
+      light.colin_lamp_level: off
+      light.charlie_lamp_level: off
+      light.pendants_level: off
+      light.dining_room_level: off
+      light.living_room_level: off
+      light.tv_room_ceiling_level: off
+      light.hue_white_left: off
+      light.hue_white_right: off
+      light.main_kitchen_light_level: off
+      light.kitchen_spots_level: off
+      light.master_bathroom_level: off
+      light.front_bathroom_level: off
+      input_boolean.night_mode: on
+    
+  - name: reading
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: off
+      light.colin_lamp_level: 
+        state: on
+        brightness_pct: 25
+      light.charlie_lamp_level:
+        state: on
+        brightness_pct: 25
+      light.pendants_level: off
+      light.dining_room_level: off
+      light.living_room_level: off
+      light.tv_room_ceiling_level: off
+      light.hue_white_left: off
+      light.hue_white_right: off
+      light.main_kitchen_light_level: off
+      light.kitchen_spots_level: off
+      input_boolean.night_mode: on
+
+  - name: evening
+    entities:
+      light.office_level: off
+      light.stairs_level: off
+      light.upstairs_hall_level: on
+      light.pendants_level: on 
+      light.dining_room_level: 
+        state: on
+        brightness_pct: 75
+      light.main_kitchen_light_level: 
+        state: on
+        brightness_pct: 75
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 75
+      input_boolean.night_mode: off
+     
+  - name: morning
+    entities:
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 50
+      light.pendants_level:
+        state: on
+        brightness_pct: 75
+    
+  - name: tv_time
+    entities:
+      light.dining_room_level: off
+      light.kitchen_spots_level: off
+      light.main_kitchen_light_level: off
+      light.pendants_level: off
+      light.upstairs_hall_level:
+        state: on
+        brightness_pct: 100
+      light.stairs_level:
+        state: on
+        brightness_pct: 100
+      light.hue_white_left:
+        state: on
+        brightness_pct: 100
+      light.hue_white_right:
+        state: on
+        brightness_pct: 100
+    
+  - name: bedtime
+    entities:
+      light.living_room_level: off
+      light.kitchen_spots_level:
+        state: on
+        brightness_pct: 50
+      light.pendants_level:
+        state: on
+        brightness_pct: 50
+      light.hue_white_right: off
+      light.hue_white_left: off
+      light.upstairs_hall_level: 
+        state: on
+        brightness_pct: 25
+      light.stairs_level:
+        state: on
+        brightness_pct: 100
+      light.colin_lamp_level:
+        state: on
+        brightness_pct: 100
+      light.charlie_lamp_level:
+        state: on
+        brightness_pct: 100
+      input_boolean.night_mode: on

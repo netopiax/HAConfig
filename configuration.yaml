@@ -30,11 +30,18 @@ intent_script:
       type: plain
       text: !include alexa_confirm.yaml
 
+  ActivateScriptIntent:
+    action:
+      service: script.turn_on
+      data_template:
+        entity_id: script.{{ Script | replace(" ", "_") }}
+    speech:
+      type: plain
+      text: !include alexa_confirm.yaml
+
   amzn1.ask.skill.eaf2305c-434e-4b9f-b311-f8b0093323b0:
     action:
-      service: scene.turn_on
-      data:
-        entity_id: scene.bye_felicia
+      service: script.bye_felicia
     speech:
       type: plain
       text: "Later Hater"
@@ -205,16 +212,19 @@ binary_sensor:
 sensor:
 #  - platform: yr
   - platform: google_wifi
+    monitored_conditions:
+      - uptime
+      - status
   - platform: systemmonitor
     resources:
     - type: disk_use_percent
       arg: /
     - type: memory_use_percent
-    - type: swap_use_percent
+#   - type: swap_use_percent
     - type: load_1m
     - type: load_15m
-    - type: ipv4_address
-      arg: enxb827ebb89b75
+#   - type: ipv4_address
+#     arg: enxb827ebb89b75
     - type: since_last_boot
   - platform: wunderground
     api_key: !secret wunderground_api
@@ -264,9 +274,9 @@ emulated_hue:
 #    - switch
 #    - scene
 
-switch:
-  - platform: tplink
-    host: 192.168.86.112
+#switch:
+#  - platform: tplink
+#    host: 192.168.86.112
 
 ecobee:
   api_key: !secret ecobee_api_key

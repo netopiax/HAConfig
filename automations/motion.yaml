@@ -1,11 +1,10 @@
-
 - alias: 'Hallway motion'
   id: 'hallway_motion'
   initial_state: true
   trigger:
-    - platform: state
-      entity_id: binary_sensor.hallway_motion_sensor
-      to: 'on'
+    platform: state
+    entity_id: binary_sensor.hallway_motion_sensor
+    to: 'on'
   action:
     service: scene.turn_on
     data_template:
@@ -24,7 +23,7 @@
     entity_id: binary_sensor.hallway_motion_sensor
     to: 'off'
     for: 
-      minutes: 3
+      minutes: 1
   action:
     service: scene.turn_on
     entity_id: scene.hallway_dark
@@ -33,9 +32,9 @@
   id: 'bathroom_motion'
   initial_state: true
   trigger:
-    - platform: state
-      entity_id: binary_sensor.bathroom_motion_sensor
-      to: 'on'
+    platform: state
+    entity_id: binary_sensor.bathroom_motion_sensor
+    to: 'on'
   action:
     service: scene.turn_on
     data_template:

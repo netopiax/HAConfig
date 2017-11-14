@@ -1,0 +1,216 @@
+disarm:
+  alias: Disarm
+  sequence:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.siren_switch
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id: alarm_control_panel.house_alarm
+
+bye_felicia:
+  alias: Bye Felicia
+  sequence:
+    - service: homeassistant.turn_off
+      data: 
+        entity_id:
+          - light.office_level
+          - light.stairs_level
+          - light.upstairs_hall_level
+          - light.colin_lamp_level
+          - light.charlie_lamp_level
+          - light.pendants_level
+          - light.dining_room_level
+          - light.tv_room_ceiling_level
+          - light.hue_white_left
+          - light.hue_white_right
+          - light.main_kitchen_light_level
+          - light.kitchen_spots_level
+          - switch.front_hall_switch
+          - input_boolean.night_mode
+    - service: alarm_control_panel.alarm_arm_away
+      data:
+        entity_id:
+          - alarm_control_panel.house_alarm
+
+goodnight:
+  alias: Goodnight
+  sequence:
+    - service: homeassistant.turn_off
+      data: 
+        entity_id:
+          - light.office_level
+          - light.stairs_level
+          - light.upstairs_hall_level
+          - light.colin_lamp_level
+          - light.charlie_lamp_level
+          - light.pendants_level
+          - light.dining_room_level
+          - light.tv_room_ceiling_level
+          - light.hue_white_left
+          - light.hue_white_right
+          - light.main_kitchen_light_level
+          - light.kitchen_spots_level
+          - switch.front_hall_switch
+          - light.front_bathroom_level
+    - service: alarm_control_panel.alarm_arm_home
+      data:
+        entity_id:
+          - alarm_control_panel.house_alarm
+    - service: homeassistant.turn_on
+      data:
+        entity_id:
+          - input_boolean.night_mode
+    - service: lock.lock
+      data:
+        entity_id:
+          - lock.front_door_lock_locked
+
+
+time_for_work:
+  alias: Time For Work
+  sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id: 
+          - light.kitchen_spots_level
+          - light.main_kitchen_light_level
+          - light.pendants_level
+          - light.dining_room_level
+          - light.living_room_level
+          - input_boolean.night_mode
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id:
+          - alarm_control_panel.house_alarm
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.office_level
+          - light.stairs_level
+        brightness_pct: 100
+
+morning:
+  alias: Morning
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.kitchen_spots_level
+        brightness_pct: 50
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.pendants_level
+        brightness_pct: 75
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        entity_id:
+          - alarm_control_panel.house_alarm
+
+evening:
+  alias: Evening
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - light.stairs_level
+          - light.pendants_level
+        brightness_pct: 100
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.kitchen_spots_level
+          - light.main_kitchen_light_level
+          - light.dining_room_level
+        brightness_pct: 75
+    - service: homeassistant.turn_off
+      data:
+        entity_id:
+          - light.office_level
+          - switch.office_air 
+          - input_boolean.night_mode
+
+tv_time:
+  alias: TV Time
+  sequence:
+    - service: homeassistant.turn_off
+      data:
+        entity_id:
+          - light.dining_room_level
+          - light.kitchen_spots_level
+          - light.main_kitchen_light_level
+          - light.pendants_level
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.upstairs_hall_level
+          - light.stairs_level
+          - light.hue_white_left
+          - light.hue_white_right
+        brightness_pct: 100
+
+bedtime:
+  alias: Bedtime
+  sequence:
+    - service: home_assistant.turn_off
+      data:
+        entity_id:
+          - light.living_room_level
+          - light.tv_room_ceiling_level
+          - light.hue_white_left
+          - light.hue_white_right
+    - service: home_assistant.turn_on
+      data:
+        entity_id: input_boolean.night_mode
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.kitchen_spots_level
+          - light.pendants_level
+          - light.upstairs_hall_level
+        brightness_pct: 50
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.stairs_level
+          - light.colin_lamp_level
+          - light.charlie_lamp_level
+        brightness_pct: 100
+    - service: lock.lock
+      data:
+        entity_id:
+          - lock.front_door_lock_locked
+ 
+reading:
+  alias: Reading
+  sequence:
+    - service: home_assistant.turn_off
+      data:
+        entity_id:
+         - light.office_level
+         - light.stairs_level
+         - light.upstairs_hall_level
+         - light.pendants_level
+         - light.dining_room_level
+         - light.living_room_level
+         - light.hue_white_left
+         - light.hue_white_right
+         - light.tv_room_ceiling_level
+         - light.main_kitchen_light_level
+         - light.kitchen_spots_level
+    - service: alarm_control_panel.alarm_arm_home
+      data:
+        entity_id: alarm_control_panel.house_alarm
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.charlie_lamp_level
+          - light.colin_lamp_level
+        brightness_pct: 25
+    - service: lock.lock
+      data:
+        entity_id:
+          - lock.front_door_lock_locked
+          
+

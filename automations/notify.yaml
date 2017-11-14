@@ -1,4 +1,3 @@
-
 - alias: "Notification for Ring battery"
   id: '3458'
   trigger:
@@ -43,8 +42,8 @@
 - alias: 'HA Update Notification'
   id: '1111'
   trigger:
-    - platform: state
-      entity_id: updater.updater
+    platform: state
+    entity_id: updater.updater
   action:
     service: persistent_notification.create
     data:

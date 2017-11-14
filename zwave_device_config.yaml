@@ -59,3 +59,9 @@ sensor.garage_alarm_level:
 sensor.garage_alarm_type:
   ignored: true
   polling_intensity: 0
+light.front_bathroom_level:
+  ignored: false
+  polling_intensity: 0
+light.master_bathroom_level:
+  ignored: false
+  polling_intensity: 0

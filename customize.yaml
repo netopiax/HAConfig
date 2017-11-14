@@ -1,78 +1,111 @@
 binary_sensor.philips_hue:
   hidden: true
+group.all_automations:
+  hidden: false
 binary_sensor.honu_hub:
   hidden: true
 remote.honu_harmony_hub:
   hidden: true
+switch.office_air:
+  icon: mdi:fan
+  friendly_name: Office Air Cleaner
 switch.holiday_lights:
   icon: mdi:pine-tree
-  emulated_hue: true
+  emulated_hue_hidden: false
+  friendly_name: Holiday Lights
 light.front_bathroom_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Front Bathroom
 light.master_bathroom_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Master Bathroom
 light.main_kitchen_light_level:
   friendly_name: Main Kitchen Light
-  emulated_hue: true
+  emulated_hue_hidden: false
 light.kitchen_spots_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Kitchen Spots
 light.tv_room_ceiling_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: TV Room Ceiling
 light.living_room_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   icon: mdi:lamp
   friendly_name: Living Room
 light.colin_lamp_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   icon: mdi:lamp
   friendly_name: Colin Lamp
 light.charlie_lamp_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   icon: mdi:lamp
   friendly_name: Charlie Lamp
 light.office_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Office
   icon: mdi:lamp
 light.dining_room_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   icon: mdi:ceiling-light
   friendly_name: Dining Room
 light.pendants_level:
   icon: mdi:ceiling-light
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Pendants
 light.hue_white_left:
-  emulated_hue: true
+  emulated_hue_hidden: false
   icon: mdi:lamp
   friendly_name: TV Room Left
 light.hue_white_right:
-  emulated_hue: true
+  emulated_hue_hidden: true
   icon: mdi:lamp
   friendly_name: TV Room Right
 light.stairs_level:
-  emulated_hue: true
+  emulated_hue_hidden: true
   friendly_name: Stairs
 light.upstairs_hall_level:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Upstairs Hall
 lock.front_door_lock_locked:
   friendly_name: Front Door
 switch.front_hall_switch:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Front Hall
   icon: mdi:ceiling-light
 switch.exterior_switch:
-  emulated_hue: true
+  emulated_hue_hidden: false
   friendly_name: Exterior
   icon: mdi:home
+script.bye_felicia:
+  icon: mdi:emoticon-cool
+  friendly_name: Bye Felicia
+script.time_for_work:
+  friendly_name: Time For Work
+  icon: mdi:briefcase
+script.goodnight:
+  icon: mdi:sleep
+  friendly_name: Goodnight
+script.reading:
+  icon: mdi:hotel
+  friendly_name: Reading
+script.evening:
+  icon: mdi:weather-night
+  friendly_name: Evening
+script.morning:
+  icon: mdi:weather-sunny
+  friendly_name: Morning
+script.tv_time:
+  icon: mdi:television
+  friendly_name: TV Time
+script.bedtime:
+  icon: mdi:stairs
+  friendly_name: Bedtime
 scene.bye_felicia:
   icon: mdi:emoticon-cool
   friendly_name: Bye Felicia
+scene.time_for_work:
+  friendly_name: Time For Work
+  icon: mdi:briefcase
 scene.goodnight:
   icon: mdi:sleep
   friendly_name: Goodnight
@@ -115,55 +148,33 @@ scene.tv_room_dark:
 scene.kitchen_bright:
   icon: mdi:brightness-7
   friendly_name: Kitchen Bright
+scene.kitchen_medium:
+  icon: mdi:brightness-5
+  friendly_name: Kitchen Medium
 scene.kitchen_dim:
   icon: mdi:brightness-4
   friendly_name: Kitchen Dim
 scene.kitchen_dark:
   icon: mdi:brightness-1
   friendly_name: Kitchen Dark
-group.daily_forecast:
-  emulated_hue: false
-group.all_locks:
-  emulated_hue: false
-group.all_automations:
-  emulated_hue: false
-group.all_remotes:
-  emulated_hue: false
-group.other_lights:
-  emulated_hue: false
-group.all_switches:
-  emulated_hue: false
-group.indoor_temps:
-  emulated_hue: false
-group.all_scenes:
-  emulated_hue: false
-group.weather_overview:
-  emulated_hue: false
-group.automation_list:
-  emulated_hue: false
 group.kitchen_lights:
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: Kitchen
 group.all_lights:
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: All Lights
 group.bedroom_lights:
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: Bedroom
-group.pathway_lights:
-  emulated_hue: true
-  emulated_hue_name: Pathway
 group.tv_room_lights:
-  emulated_hue: true
+  emulated_hue_hidden: false 
   emulated_hue_name: TV Room
 sensor.google_wifi_uptime:
   icon: mdi:cup
   friendly_name: Uptime
-  emulated_hue: false
 sensor.google_wifi_status:
   icon: mdi:access-point
   friendly_name: Status
-  emulated_hue: false
 sensor.google_wifi_new_version:
   icon: mdi:calendar-question
   friendly_name: New Version

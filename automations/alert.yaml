@@ -1,14 +1,14 @@
-
 - alias: 'Garage Open'
   id: 'garage_notify'
+  initial_state: true
   trigger:
-    - platform: state
-      entity_id: binary_sensor.garage_door_open
-      to: 'on'
-      for:
-        minutes: 10
+    platform: state
+    entity_id: binary_sensor.garage_open
+    to: 'on'
+    for:
+      minutes: 10
   action:
-    - service: notify.tgnotify
-      data:
-        message: 'GARAGE: The garage has been open for 10 minutes'
+    service: notify.tgnotify
+    data:
+      message: 'GARAGE: The garage has been open for 10 minutes'
 

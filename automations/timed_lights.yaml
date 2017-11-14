@@ -50,13 +50,8 @@
     entity_id: binary_sensor.front_door_security
     to: 'Open'
   condition:
-    condition: and
-    conditions:
-      - condition: template
-        value_template: '{{ states.sun.sun.state == "below_horizon" }}'
-      - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: 'false'
+    condition: template
+    value_template: '{{ states.sun.sun.state == "below_horizon" }}'
   action:
     service: scene.turn_on
     entity_id: scene.kitchen_dim

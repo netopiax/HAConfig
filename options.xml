@@ -2,7 +2,7 @@
 <!-- To be effective, this file should be placed in the user data folder specified in the Options::Create method -->
 <Options xmlns='http://code.google.com/p/open-zwave/'>
   <Option name="logging" value="true" />
-  <Option name="SaveLogLevel" value="5" />
+  <Option name="SaveLogLevel" value="4" />
   <Option name="Associate" value="true" />
   <Option name="NotifyTransactions" value="false" />
   <Option name="DriverMaxAttempts" value="5" />
