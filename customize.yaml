@@ -13,6 +13,9 @@ switch.holiday_lights:
   icon: mdi:pine-tree
   emulated_hue_hidden: false
   friendly_name: Holiday Lights
+switch.holiday_tree:
+  icon: mdi:pine-tree-box
+  emulated_hue_hidden: false
 light.front_bathroom_level:
   emulated_hue_hidden: false
   friendly_name: Front Bathroom
@@ -61,7 +64,7 @@ light.hue_white_right:
   icon: mdi:lamp
   friendly_name: TV Room Right
 light.stairs_level:
-  emulated_hue_hidden: true
+  emulated_hue_hidden: false
   friendly_name: Stairs
 light.upstairs_hall_level:
   emulated_hue_hidden: false
@@ -100,31 +103,7 @@ script.tv_time:
 script.bedtime:
   icon: mdi:stairs
   friendly_name: Bedtime
-scene.bye_felicia:
-  icon: mdi:emoticon-cool
-  friendly_name: Bye Felicia
-scene.time_for_work:
-  friendly_name: Time For Work
-  icon: mdi:briefcase
-scene.goodnight:
-  icon: mdi:sleep
-  friendly_name: Goodnight
-scene.reading:
-  icon: mdi:hotel
-  friendly_name: Reading
-scene.evening:
-  icon: mdi:weather-night
-  friendly_name: Evening
-scene.morning:
-  icon: mdi:weather-sunny
-  friendly_name: Morning
-scene.tv_time:
-  icon: mdi:television
-  friendly_name: TV Time
-scene.bedtime:
-  icon: mdi:stairs
-  friendly_name: Bedtime
-scene.bedroom_bright:
+cene.bedroom_bright:
   icon: mdi:brightness-7
   friendly_name: Bedroom Bright
 scene.bedroom_dim:

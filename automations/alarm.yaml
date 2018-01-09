@@ -6,11 +6,26 @@
     entity_id: sensor.front_door_lock_alarm_type
     to: '19'
   action:
-    - service: alarm_control_panel.alarm_disarm
-      entity_id: alarm_control_panel.house_alarm
-    - service: homeassistant.turn_off
-      entity_id: input_boolean.vacation_mode
-      #also never be in vacation mode when we're home
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.house_alarm
+
+- alias: 'Check hallway for cat triggering'
+  id: 'cat_motion_check'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id:
+      - binary_sensor.hallway_motion_sensor
+      - binary_sensor.hallway_rear_motion_sensor
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.house_alarm
+    state: armed_away
+  action:
+    service: notify.tgnotify
+    data:
+      message: "Hallway motion while alarm armed away"
 
 - alias: 'ALARM Home'
   id: 'alarm_home'
@@ -69,7 +84,7 @@
   action:
     service: notify.tgnotify
     data:
-      message: 'ALARM Info! Garage door opened when alarm armed_away'
+      message: 'ALARM Info! Garage door opened when alarm armed away'
 
 - alias: 'ALARM Away motion'
   id: 'alarm_away_motion'
@@ -79,7 +94,7 @@
     entity_id:
 #     - binary_sensor.hallway_motion_sensor
       - binary_sensor.living_room_motion_sensor
-      - binary_sensor.downstairs_motion_sensor
+#     - binary_sensor.downstairs_motion_sensor
     to: 'on'
   condition:
     condition: state
@@ -90,7 +105,7 @@
       entity_id: alarm_control_panel.house_alarm
     - service: notify.tgnotify
       data:
-        message: 'ALARM Info! armed_away - motion'
+        message: "ALARM Info! armed away - motion"
 
 - alias: 'ALARM Tamper'
   id: 'alarm_tamper'
@@ -99,7 +114,7 @@
     platform: state
     entity_id:
       - sensor.back_door_burglar
-      - sensor.front_door_closed_burglar
+      - sensor.front_door_burglar
       - sensor.garage_burglar
       - sensor.living_room_motion_burglar
       - sensor.hallway_motion_burglar

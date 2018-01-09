@@ -27,7 +27,6 @@ bye_felicia:
           - light.main_kitchen_light_level
           - light.kitchen_spots_level
           - switch.front_hall_switch
-          - input_boolean.night_mode
     - service: alarm_control_panel.alarm_arm_away
       data:
         entity_id:
@@ -57,7 +56,7 @@ goodnight:
       data:
         entity_id:
           - alarm_control_panel.house_alarm
-    - service: homeassistant.turn_on
+    - service: input_boolean.turn_on
       data:
         entity_id:
           - input_boolean.night_mode
@@ -70,7 +69,13 @@ goodnight:
 time_for_work:
   alias: Time For Work
   sequence:
-    - service: homeassistant.turn_off
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.office_level
+          - light.stairs_level
+        brightness_pct: 100
+    - service: light.turn_off
       data:
         entity_id: 
           - light.kitchen_spots_level
@@ -78,17 +83,14 @@ time_for_work:
           - light.pendants_level
           - light.dining_room_level
           - light.living_room_level
+    - service: input_boolean.turn_off
+      data:
+        entity_id: 
           - input_boolean.night_mode
     - service: alarm_control_panel.alarm_disarm
       data:
         entity_id:
           - alarm_control_panel.house_alarm
-    - service: light.turn_on
-      data:
-        entity_id:
-          - light.office_level
-          - light.stairs_level
-        brightness_pct: 100
 
 morning:
   alias: Morning
@@ -129,18 +131,10 @@ evening:
         entity_id:
           - light.office_level
           - switch.office_air 
-          - input_boolean.night_mode
 
 tv_time:
   alias: TV Time
   sequence:
-    - service: homeassistant.turn_off
-      data:
-        entity_id:
-          - light.dining_room_level
-          - light.kitchen_spots_level
-          - light.main_kitchen_light_level
-          - light.pendants_level
     - service: light.turn_on
       data:
         entity_id:
@@ -149,27 +143,20 @@ tv_time:
           - light.hue_white_left
           - light.hue_white_right
         brightness_pct: 100
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.dining_room_level
+          - light.kitchen_spots_level
+          - light.main_kitchen_light_level
+          - light.pendants_level
 
 bedtime:
   alias: Bedtime
   sequence:
-    - service: home_assistant.turn_off
-      data:
-        entity_id:
-          - light.living_room_level
-          - light.tv_room_ceiling_level
-          - light.hue_white_left
-          - light.hue_white_right
-    - service: home_assistant.turn_on
+    - service: input_boolean.turn_on
       data:
         entity_id: input_boolean.night_mode
-    - service: light.turn_on
-      data:
-        entity_id:
-          - light.kitchen_spots_level
-          - light.pendants_level
-          - light.upstairs_hall_level
-        brightness_pct: 50
     - service: light.turn_on
       data:
         entity_id:
@@ -177,6 +164,20 @@ bedtime:
           - light.colin_lamp_level
           - light.charlie_lamp_level
         brightness_pct: 100
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.kitchen_spots_level
+          - light.pendants_level
+          - light.upstairs_hall_level
+        brightness_pct: 50
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.living_room_level
+          - light.tv_room_ceiling_level
+          - light.hue_white_left
+          - light.hue_white_right
     - service: lock.lock
       data:
         entity_id:
@@ -185,6 +186,16 @@ bedtime:
 reading:
   alias: Reading
   sequence:
+    - service: input_boolean.turn_on
+      data:
+        entity_id:
+          - input_boolean.night_mode
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.charlie_lamp_level
+          - light.colin_lamp_level
+        brightness_pct: 25
     - service: home_assistant.turn_off
       data:
         entity_id:
@@ -202,12 +213,6 @@ reading:
     - service: alarm_control_panel.alarm_arm_home
       data:
         entity_id: alarm_control_panel.house_alarm
-    - service: light.turn_on
-      data:
-        entity_id:
-          - light.charlie_lamp_level
-          - light.colin_lamp_level
-        brightness_pct: 25
     - service: lock.lock
       data:
         entity_id:

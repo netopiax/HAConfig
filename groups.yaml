@@ -22,6 +22,7 @@ lights_view:
     - group.tv_room_lights
     - group.other_lights
     - group.misc_lights
+
 scenes_view:
   name: Scenes
   view: true
@@ -31,7 +32,6 @@ scenes_view:
     - group.kitchen_scenes
     - group.bedroom_scenes
     - group.tv_room_scenes
-
 
 climate_view:
   name: Climate 
@@ -57,10 +57,7 @@ google_wifi_card:
   icon: mdi:wifi
   entities:
     - sensor.google_wifi_status
-#   - sensor.google_wifi_new_version
     - sensor.google_wifi_uptime
-#   - sensor.google_wifi_last_restart
-#   - sensor.google_wifi_local_ip
 system_monitor_card:
   name: System Monitor
   entities:
@@ -70,7 +67,7 @@ system_monitor_card:
     - sensor.average_load_15m
     - sensor.since_last_boot
 ecobee_card:
-  name: Ecobee
+  name: Indoor Temps
   entities:
     - climate.my_ecobee3
     - sensor.bedroom_temperature
@@ -91,8 +88,6 @@ lock_card:
     - sensor.ring_front_door_last_motion
     - sensor.ring_front_door_last_ding
     - sensor.ring_front_door_battery
-#   - sensor.front_door_lock_alarm_type
-#   - sensor.front_door_lock_alarm_level
 
 security_card:
   name: Security Sensors
@@ -102,6 +97,7 @@ security_card:
     - binary_sensor.garage_open
     - binary_sensor.living_room_motion_sensor
     - binary_sensor.hallway_motion_sensor
+    - binary_sensor.hallway_rear_motion_sensor
     - binary_sensor.bathroom_motion_sensor
     - binary_sensor.downstairs_motion_sensor
     - binary_sensor.my_ecobee3_occupancy
@@ -195,6 +191,7 @@ other_lights:
     - light.office_level
     - switch.holiday_lights
     - switch.front_hall_switch
+    - switch.holiday_tree
 
 misc_lights:
   name: Misc Switches

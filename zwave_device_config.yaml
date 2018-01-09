@@ -1,63 +1,67 @@
 light.charlie_lamp_level:
   ignored: false
   polling_intensity: 0
-  refresh_value: true
+  refresh_value: false
 light.colin_lamp_level:
   ignored: false
   polling_intensity: 0
-  refresh_value: true
+  refresh_value: false
 light.dining_room_level:
   ignored: false
   polling_intensity: 1
-  refresh_value: true
+  refresh_value: false
 ight.pendants_level:
   ignored: false
   polling_intensity: 1
   refresh_value: true
+  delay: 5
 light.office_level:
   ignored: false
   polling_intensity: 1
   refresh_value: true
+  delay: 5
 light.stairs_level:
   ignored: false
   polling_intensity: 1
   refresh_value: true
+  delay: 5
 light.upstairs_hall_level:
   ignored: false
   polling_intensity: 1
   refresh_value: true
+  delay: 5
 sensor.back_door_alarm_level:
-  ignored: true
+  ignored: false
   polling_intensity: 0
 sensor.back_door_alarm_type:
-  ignored: true
+  ignored: false
   polling_intensity: 0
 sensor.bathroom_motion_power_management:
   ignored: true
   polling_intensity: 0
 sensor.bathroom_motion_alarm_type:
-  ignored: true
+  ignored: false
   polling_intensity: 0
-sensor.front_door_closed_alarm_level:
-  ignored: true
+sensor.front_door_alarm_level:
+  ignored: false
   polling_intensity: 0
-sensor.front_door_closed_alarm_type:
-  ignored: true
+sensor.front_door_alarm_type:
+  ignored: false
   polling_intensity: 0
 sensor.hallway_motion_alarm_level:
-  ignored: true
+  ignored: false
   polling_intensity: 0
 sensor.hallway_motion_alarm_type:
-  ignored: true
+  ignored: false
   polling_intensity: 0
 sensor.hallway_motion_power_management:
-  ignored: true
+  ignored: false
   polling_intensity: 0
 sensor.garage_alarm_level:
-  ignored: true
+  ignored: false
   polling_intensity: 0
 sensor.garage_alarm_type:
-  ignored: true
+  ignored: false
   polling_intensity: 0
 light.front_bathroom_level:
   ignored: false
