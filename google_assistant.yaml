@@ -1,0 +1,212 @@
+  project_id: !secret google_project_id
+  api_key: !secret google_api_key
+  expose_by_default: false
+  exposed_domains:
+    - light
+    - switch
+    - fan
+    - scene
+    - script
+  entity_config:
+    switch.living_room_tree:
+      expose: true
+      room: Living Room
+      name: Living Room Tree
+    light.office_level:
+      expose: true
+      room: Office
+      name: Office Lamp
+    light.stairs_level:
+      expose: true
+      room: Hallway
+      name: Stairs
+    light.tv_room_ceiling_level:
+      expose: true
+      room: TV Room
+      name: TV Room Ceiling
+    light.bed_color:
+      expose: true
+      room: Bedroom
+      name: Bed Color
+    light.charlie_lamp_level:
+      expose: true
+      room: Bedroom
+      name: Charlie Lamp
+    light.colin_lamp_level:
+      expose: true
+      room: Bedroom
+      name: Colin Lamp
+    light.dining_room_level:
+      expose: true
+      room: Dining Room
+      name: Dining Room
+    light.front_bathroom_level:
+      expose: true
+      room: Front Bathroom
+      name: Front Bathroom
+    light.hue_white_left:
+      expose: true
+      room: TV Room
+      name: TV Room Left
+    light.hue_white_right:
+      expose: true
+      room: TV Room
+      name: TV Room Right
+    light.kitchen_spots_level:
+      expose: true
+      room: Kitchen
+      name: Kitchen Spots
+    light.main_kitchen_light_level:
+      expose: true
+      room: Kitchen
+      name: Main Kitchen Light
+    light.pendants_level:
+      expose: true
+      room: Kitchen
+      name: Pendants
+    light.living_room_level:
+      expose: true
+      room: Living Room
+      name: Living Room Lamp
+    light.master_bathroom_level:
+      expose: true
+      room: Master Bathroom
+      name: Master Bathroom
+    light.upstairs_hall_level:
+      expose: true
+      room: Hallway
+      name: Upstairs Hall
+    switch.front_hall_switch:
+      expose: true
+      room: Hallway
+      name: Front Hall
+    fan.office_ceiling_fan:
+      expose: true
+      room: Office
+      name: Office Ceiling Fan
+    scene.bedroom_bright:
+      expose: true
+      name: Bedroom Bright
+      aliases:
+        - Bedroom Bright Scene
+    scene.bedroom_dark:
+      expose: true
+      name: Bedroom Dark
+      aliases:
+        - Bedroom Dark Scene
+    scene.bedroom_dim:
+      expose: true
+      name: Bedroom Dim
+      aliases:
+        - Bedroom Dim Scene
+    scene.kitchen_bright:
+      expose: true
+      name: Kitchen Bright
+      aliases:
+        - Kitchen Bright Scene
+    scene.kitchen_eco:
+      expose: true
+      name: Kitchen Eco
+      aliases:
+        - Kitchen Eco Scene
+    scene.kitchen_dim:
+      expose: true
+      name: Kitchen Dim
+      aliases:
+        - Kitchen Dim Scene
+    scene.kitchen_dark:
+      expose: true
+      name: Kitchen Dark
+      aliases:
+        - Kitchen Dark Scene
+    scene.kitchen_medium:
+      expose: true
+      name: Kitchen Medium
+      aliases:
+        - Kitchen Medium Scene
+    scene.tv_room_bright:
+      expose: true
+      name: TV Room Bright
+      aliases:
+        - TV Room Bright Scene
+    scene.tv_room_medium:
+      expose: true
+      name: TV Room Medium
+      aliases:
+        - TV Room Medium Scene
+    scene.tv_room_dim:
+      expose: true
+      name: TV Room Dim
+      aliases:
+        - TV Room Dim Scene
+    scene.tv_room_dark:
+      expose: true
+      name: TV Room Dark
+      aliases:
+        - TV Room Dark Scene
+    script.bedtime:
+      expose: true
+      name: Bedtime
+      aliases:
+        - Bed Time
+        - Bedtime Script
+        - Bed Time Script
+    script.goodnight:
+      expose: true
+      name: Goodnight
+      aliases:
+        - Goodnight Script
+        - Good Night Script
+    script.arm_home:
+      expose: true
+      name: Arm Home
+      aliases:
+        - Arm Home
+        - Arm Home Script
+        - Expecto Patronum
+    script.disarm:
+      expose: true
+      name: Disarm
+      aliases:
+        - Disarm Script
+    script.bye_felicia:
+      expose: true
+      name: Bye Felicia
+      aliases:
+        - Bye Felicia Script
+    script.evening:
+      expose: true
+      name: Evening
+      aliases:
+        - Evening Script
+    script.morning:
+      expose: true
+      name: Morning
+      aliases:
+        - Morning Script
+    script.reading:
+      expose: true
+      name: Reading
+      aliases:
+        - Reading Script
+    script.time_for_work:
+      expose: true
+      name: Time For Work
+      aliases:
+        - Time For Work Script
+    script.tv_time:
+      expose: true
+      name: TV Time
+      aliases:
+        - TV Time Script
+    climate.my_ecobee3:
+      expose: true
+      name: Ecobee
+      aliases:
+        - Thermostat
+        - Main Thermostat
+    input_boolean.night_mode:
+      expose: true
+      name: Night Mode
+
+

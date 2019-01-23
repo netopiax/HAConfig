@@ -1,0 +1,40 @@
+  ActivateSceneIntent:
+    action:
+      service: scene.turn_on
+      data_template:
+        entity_id: scene.{{ Scene | replace(" ", "_") }}
+    speech:
+      type: plain
+      text: !include alexa_confirm.yaml
+
+  ActivateScriptIntent:
+    action:
+      service: script.turn_on
+      data_template:
+        entity_id: script.{{ Script | replace(" ", "_") }}
+    speech:
+      type: plain
+      text: !include alexa_confirm.yaml
+
+  amzn1.ask.skill.eaf2305c-434e-4b9f-b311-f8b0093323b0:
+    action:
+      service: script.bye_felicia
+    speech:
+      type: plain
+      text: "Later Hater"
+
+  amzn1.ask.skill.5b984569-566b-43d3-832c-acbf23ffeb24:
+    action:
+      service: alarm_control_panel.alarm_arm_home
+      data:
+        entity_id: alarm_control_panel.house_alarm
+    speech:
+      type: plain
+      text: >
+        The alarm is armed. The front door is {{ states("sensor.lock_front_door_status") }}.
+        Front door is{% if is_state("binary_sensor.front_door_open", "on") %} open. {% else %} closed. {% endif %}
+        Back door is{% if is_state("binary_sensor.back_door_open", "on") %} open. {% else %} closed. {% endif %}
+        Garage is{% if is_state("binary_sensor.garage_door_open", "on") %} open. {% else %} closed. {% endif %}
+        Left living room window is{% if is_state("binary_sensor.living_room_left_window_open", "on") %} open. {% else %} closed. {% endif %}
+        Right living room window is{% if is_state("binary_sensor.living_room_right_window_open", "on") %} open. {% else %} closed. {% endif %}
+
