@@ -1,4 +1,4 @@
-- alias: 'Garage Open'
+- alias: 'Garage Open Long Time'
   id: 'garage_notify'
   initial_state: true
   trigger:
@@ -12,3 +12,28 @@
     data:
       message: 'GARAGE: The garage has been open for 10 minutes'
 
+- alias: 'Garage Open Sound'
+  id: 'garage_ping'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.garage_open
+    to: 'on'
+  action:
+    service: zwave.set_node_value
+    data:
+      node_id: 25
+      value_id: "72057594463764481"
+      value: 4
+
+- alias: 'Mouser'
+  id: 'mouser_notify'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.mouser
+    to: 'on'
+  action:
+    service: notify.tgnotify
+    data:
+      message: 'MOUSER: I think I caught something!'

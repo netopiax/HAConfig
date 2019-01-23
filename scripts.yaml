@@ -8,6 +8,18 @@ disarm:
       data:
         entity_id: alarm_control_panel.house_alarm
 
+arm_home:
+  alias: Arm Home
+  sequence:
+    - service: alarm_control_panel.alarm_arm_home
+      data:
+        entity_id:
+          - alarm_control_panel.house_alarm
+    - service: lock.lock
+      data:
+        entity_id:
+          - lock.front_door_lock_locked
+
 bye_felicia:
   alias: Bye Felicia
   sequence:
@@ -26,7 +38,9 @@ bye_felicia:
           - light.hue_white_right
           - light.main_kitchen_light_level
           - light.kitchen_spots_level
+          - light.bed_color
           - switch.front_hall_switch
+          - switch.dohm
     - service: alarm_control_panel.alarm_arm_away
       data:
         entity_id:
@@ -38,11 +52,12 @@ goodnight:
     - service: homeassistant.turn_off
       data: 
         entity_id:
-          - light.office_level
-          - light.stairs_level
-          - light.upstairs_hall_level
           - light.colin_lamp_level
           - light.charlie_lamp_level
+          - light.bed_color
+          - light.stairs_level
+          - light.office_level
+          - light.upstairs_hall_level
           - light.pendants_level
           - light.dining_room_level
           - light.tv_room_ceiling_level
@@ -51,15 +66,17 @@ goodnight:
           - light.main_kitchen_light_level
           - light.kitchen_spots_level
           - switch.front_hall_switch
+          - light.living_room_level
           - light.front_bathroom_level
+    - service: homeassistant.turn_on
+      data:
+        entity_id:
+          - switch.dohm
+          - input_boolean.night_mode
     - service: alarm_control_panel.alarm_arm_home
       data:
         entity_id:
           - alarm_control_panel.house_alarm
-    - service: input_boolean.turn_on
-      data:
-        entity_id:
-          - input_boolean.night_mode
     - service: lock.lock
       data:
         entity_id:
@@ -75,18 +92,17 @@ time_for_work:
           - light.office_level
           - light.stairs_level
         brightness_pct: 100
-    - service: light.turn_off
+    - service: homeassistant.turn_off
       data:
         entity_id: 
+          - light.bedroom
           - light.kitchen_spots_level
           - light.main_kitchen_light_level
           - light.pendants_level
           - light.dining_room_level
           - light.living_room_level
-    - service: input_boolean.turn_off
-      data:
-        entity_id: 
           - input_boolean.night_mode
+          - switch.dohm
     - service: alarm_control_panel.alarm_disarm
       data:
         entity_id:
@@ -104,7 +120,11 @@ morning:
       data:
         entity_id:
           - light.pendants_level
-        brightness_pct: 75
+        brightness_pct: 100
+    - service: switch.turn_off
+      data:
+        entity_id:
+          - switch.dohm
     - service: alarm_control_panel.alarm_disarm
       data:
         entity_id:
@@ -116,7 +136,6 @@ evening:
     - service: light.turn_on
       data:
         entity_id: 
-          - light.stairs_level
           - light.pendants_level
         brightness_pct: 100
     - service: light.turn_on
@@ -161,9 +180,11 @@ bedtime:
       data:
         entity_id:
           - light.stairs_level
-          - light.colin_lamp_level
-          - light.charlie_lamp_level
         brightness_pct: 100
+    - service: scene.turn_on
+      data:
+        entity_id:
+          - scene.bedroom_dim
     - service: light.turn_on
       data:
         entity_id:
@@ -196,6 +217,12 @@ reading:
           - light.charlie_lamp_level
           - light.colin_lamp_level
         brightness_pct: 25
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.bed_color
+        brightness_pct: 100
+        color_name: orange
     - service: home_assistant.turn_off
       data:
         entity_id:

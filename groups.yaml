@@ -9,6 +9,7 @@ default_view:
     - group.ring_card
     - group.lock_card
     - group.security_card
+    - binary_sensor.mouser
 
 lights_view:
   name: Lights
@@ -17,11 +18,12 @@ lights_view:
   entities:
     - group.general_scenes
     - group.kitchen_lights
+    - group.living_room_lights
     - group.bedroom_lights
     - group.pathway_lights
     - group.tv_room_lights
     - group.other_lights
-    - group.misc_lights
+    - group.office_card
 
 scenes_view:
   name: Scenes
@@ -95,10 +97,13 @@ security_card:
     - binary_sensor.front_door_open
     - binary_sensor.back_door_open
     - binary_sensor.garage_open
+    - binary_sensor.living_room_left_window_open
+    - binary_sensor.living_room_right_window_open
     - binary_sensor.living_room_motion_sensor
     - binary_sensor.hallway_motion_sensor
     - binary_sensor.hallway_rear_motion_sensor
     - binary_sensor.bathroom_motion_sensor
+    - binary_sensor.front_bathroom_motion
     - binary_sensor.downstairs_motion_sensor
     - binary_sensor.my_ecobee3_occupancy
     - binary_sensor.office_occupancy
@@ -125,6 +130,7 @@ general_scenes:
   entities:
     - input_boolean.night_mode
     - input_boolean.vacation_mode
+    - input_boolean.holiday_mode
     - script.morning
     - script.bye_felicia
     - script.time_for_work
@@ -140,6 +146,7 @@ kitchen_scenes:
     - scene.kitchen_bright
     - scene.kitchen_medium
     - scene.kitchen_dim
+    - scene.kitchen_eco
     - scene.kitchen_dark
 
 bedroom_scenes:
@@ -163,12 +170,20 @@ kitchen_lights:
     - light.main_kitchen_light_level
     - light.kitchen_spots_level
     - light.pendants_level
+    - light.dining_room_level
+
+living_room_lights:
+  name: Living Room
+  entities:
+    - light.living_room_level
+    - switch.living_room_tree
 
 bedroom_lights:
   name: Bedroom
   entities:
     - light.colin_lamp_level
     - light.charlie_lamp_level
+    - light.bed_color
 
 pathway_lights:
   name: Pathway
@@ -182,24 +197,24 @@ tv_room_lights:
     - light.hue_white_right
     - light.hue_white_left
     - light.tv_room_ceiling_level
+    
+office_card:
+  name: Office
+  entities:
+    - light.office_level
+    - fan.office_ceiling_fan
+#   - switch.office_air
 
 other_lights:
   name: Other Lights
   entities:
-    - light.dining_room_level
-    - light.living_room_level
-    - light.office_level
-    - switch.holiday_lights
-    - switch.front_hall_switch
-    - switch.holiday_tree
-
-misc_lights:
-  name: Misc Switches
-  entities:
     - light.front_bathroom_level
     - light.master_bathroom_level
     - switch.exterior_switch
-    - switch.office_air
+    - switch.front_hall_switch
+    - switch.holiday_lights
+    - switch.dohm
+    - switch.holiday_two
     
 daily_forecast:
   name: Daily Forecast

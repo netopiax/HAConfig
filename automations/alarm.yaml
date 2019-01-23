@@ -26,15 +26,30 @@
     service: notify.tgnotify
     data:
       message: "Hallway motion while alarm armed away"
+- alias: 'Check front bathroom for cat triggering'
+  id: 'cat_motion_check'
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id:
+      - binary_sensor.front_bathroom_motion
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.house_alarm
+    state: armed_away
+  action:
+    service: notify.tgnotify
+    data:
+      message: "Front bathroom motion while alarm armed away"
 
-- alias: 'ALARM Home'
+
+- alias: 'ALARM Home trigger for garage'
   id: 'alarm_home'
   initial_state: true
   trigger:
     platform: state
     entity_id: 
-        - sensor.back_door_access_control
-        - sensor.front_door_closed_access_control
         - sensor.garage_access_control
     to: '22'
   condition:
@@ -42,10 +57,13 @@
     entity_id: alarm_control_panel.house_alarm
     state: armed_home
   action:
-    service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.house_alarm
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.house_alarm
+    - service: notify.tgnotify
+      data:
+        message: "ALARM - Garage door opened while alarm armed home"
 
-- alias: 'ALARM door'
+- alias: 'ALARM Home And Away door or window and notify'
   id: 'alarm_away_door'
   initial_state: true
   trigger:
@@ -53,6 +71,8 @@
     entity_id: 
       - sensor.back_door_access_control
       - sensor.front_door_closed_access_control
+      - sensor.living_room_left_window_access_control
+      - sensor.living_room_right_window_access_control
     to: '22'
   condition:
     condition: or
@@ -67,8 +87,14 @@
     - service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.house_alarm
     - service: notify.tgnotify
-      data:
-        message: 'ALARM Info! armed - door opened'
+      data_template:
+        message: >
+          ALARM armed - access control
+          {% if is_state("binary_sensor.front_door_open", "on") %} Front door is open. {% endif %}
+          {% if is_state("binary_sensor.back_door_open", "on") %} Back door is open. {% endif %}
+          {% if is_state("binary_sensor.garage_door_open", "on") %} Garage is open. {% endif %} 
+          {% if is_state("binary_sensor.living_room_left_window_open", "on") %} Left living room window is open. {% endif %}
+          {% if is_state("binary_sensor.living_room_right_window_open", "on") %} Right living room window is open. {% endif %}
 
 - alias: 'ALARM away garage instant notify'
   id: 'alarm_away_garage_notify'
@@ -94,7 +120,7 @@
     entity_id:
 #     - binary_sensor.hallway_motion_sensor
       - binary_sensor.living_room_motion_sensor
-#     - binary_sensor.downstairs_motion_sensor
+      - binary_sensor.downstairs_motion_sensor
     to: 'on'
   condition:
     condition: state
@@ -104,8 +130,15 @@
     - service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.house_alarm
     - service: notify.tgnotify
-      data:
-        message: "ALARM Info! armed away - motion"
+      data_template:
+        message: >
+          ALARM armed away - motion
+          {% if is_state("binary_sensor.living_room_motion_sensor", "on") %} Living room motion detected. {% endif %}
+          {% if is_state("binary_sensor.downstairs_motion_sensor", "on") %} Downstairs motion detected. {% endif %}
+          {% if is_state("binary_sensor.hallway_motion_sensor", "on") %} Hallway motion detected. {% endif %}
+          {% if is_state("binary_sensor.hallway_rear_motion_sensor", "on") %} Hallway rear motion detected. {% endif %}
+          {% if is_state("binary_sensor.bathroom_motion_sensor", "on") %} Bathroom motion detected. {% endif %}
+          {% if is_state("binary_sensor.front_bathroom_motion", "on") %} Front bathroom motion detected. {% endif %}
 
 - alias: 'ALARM Tamper'
   id: 'alarm_tamper'
@@ -117,7 +150,9 @@
       - sensor.front_door_burglar
       - sensor.garage_burglar
       - sensor.living_room_motion_burglar
-      - sensor.hallway_motion_burglar
+      - sensor.downstairs_motion_burglar
+      - sensor.living_room_left_window_burglar
+      - sensor.living_room_right_window_burglar
     to: '3'
   condition:
     condition: or
@@ -135,16 +170,13 @@
       data:
         message: 'ALARM Info! Tamper detection'
 
-- alias: 'Alarm triggered'
+- alias: 'Alarm lights and siren'
   id: 'alarm_notify'
   trigger:
     platform: state
     entity_id: alarm_control_panel.house_alarm
     to: 'triggered'
   action:
-    - service: notify.tgnotify
-      data:
-        message: 'ALARM Triggered!'
     - service: switch.turn_on
       data:
         entity_id: 
@@ -161,3 +193,15 @@
           - light.tv_room_ceiling_level
           - light.office_level
         brightness_pct: 100
+        
+- alias: 'Siren off on disarm'
+  id: 'alarm_siren_off'
+  trigger:
+    platform: state
+    entity_id: alarm_control_panel.house_alarm
+    to: 'disarm'
+  action:
+    - service: switch.turn_off
+      data:
+        entity_id: switch.siren_switch
+

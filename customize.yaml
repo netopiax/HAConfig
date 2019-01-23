@@ -14,7 +14,16 @@ switch.holiday_lights:
   emulated_hue_hidden: false
   friendly_name: Holiday Lights
 switch.holiday_tree:
+  friendly_name: Living Room Tree
   icon: mdi:pine-tree-box
+light.bed_color:
+  icon: mdi:android-head
+  emulated_hue_hidden: false
+light.kitchen:
+  emulated_hue_hidden: false
+light.bedroom:
+  emulated_hue_hidden: false
+light.tv_room:
   emulated_hue_hidden: false
 light.front_bathroom_level:
   emulated_hue_hidden: false
@@ -103,7 +112,7 @@ script.tv_time:
 script.bedtime:
   icon: mdi:stairs
   friendly_name: Bedtime
-cene.bedroom_bright:
+scene.bedroom_bright:
   icon: mdi:brightness-7
   friendly_name: Bedroom Bright
 scene.bedroom_dim:
@@ -133,20 +142,23 @@ scene.kitchen_medium:
 scene.kitchen_dim:
   icon: mdi:brightness-4
   friendly_name: Kitchen Dim
+scene.kitchen_eco:
+  friendly_name: Kitchen Eco
+  icon: mdi:image-filter-hdr
 scene.kitchen_dark:
   icon: mdi:brightness-1
   friendly_name: Kitchen Dark
 group.kitchen_lights:
-  emulated_hue_hidden: false
+  emulated_hue_hidden: true
   emulated_hue_name: Kitchen
 group.all_lights:
   emulated_hue_hidden: false
   emulated_hue_name: All Lights
 group.bedroom_lights:
-  emulated_hue_hidden: false
+  emulated_hue_hidden: true
   emulated_hue_name: Bedroom
 group.tv_room_lights:
-  emulated_hue_hidden: false 
+  emulated_hue_hidden: true
   emulated_hue_name: TV Room
 sensor.google_wifi_uptime:
   icon: mdi:cup
@@ -168,5 +180,15 @@ binary_sensor.front_door_closed_sensor:
   hidden: true
 binary_sensor.garage_sensor:
   hidden: true
+binary_sensor.living_room_left_window:
+  hidden: true
 binary_sensor.garage_open:
   icon: mdi:garage
+binary_sensor.front_door_open:
+  icon: mdi:door-closed
+binary_sensor.back_door_open:
+  icon: mdi:door-closed
+binary_sensor.living_room_left_window_open:
+  icon: mdi:window-closed
+binary_sensor.living_room_right_window_open:
+  icon: mdi:window-closed

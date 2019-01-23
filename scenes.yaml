@@ -68,7 +68,7 @@
       light.hue_white_left:
         state: off
 
-  - name: bedroom_bright
+  - name: Bedroom Bright
     entities:
       light.colin_lamp_level:
         state: on
@@ -76,8 +76,12 @@
       light.charlie_lamp_level:
         state: on
         brightness_pct: 100 
+      light.bed_color:
+        state: on
+        color_name: blue
+        brightness_pct: 100
 
-  - name: bedroom_dim
+  - name: bedroom dim
     entities:
       light.colin_lamp_level:
         state: on
@@ -85,11 +89,16 @@
       light.charlie_lamp_level:
         state: on
         brightness_pct: 30 
+      light.bed_color:
+        state: on
+        brightness_pct: 10
+        color_name: red
 
-  - name: bedroom_dark
+  - name: bedroom dark
     entities:
       light.colin_lamp_level: off
       light.charlie_lamp_level: off
+      light.bed_color: off
 
   - name: kitchen_bright
     entities:
@@ -121,6 +130,18 @@
         state: on
         brightness_pct: 50
 
+  - name: kitchen_eco
+    entities:
+      light.main_kitchen_light_level: 
+        state: on
+        brightness_pct: 100
+      light.kitchen_spots_level:
+        state: off
+      light.pendants_level:
+        state: off
+      light.dining_room_level:
+        state: on
+        brightness_pct: 75
 
   - name: kitchen_dim
     entities:

@@ -66,6 +66,8 @@ sensor.garage_alarm_type:
 light.front_bathroom_level:
   ignored: false
   polling_intensity: 0
+  refresh_value: true
+  delay: 3
 light.master_bathroom_level:
   ignored: false
   polling_intensity: 0

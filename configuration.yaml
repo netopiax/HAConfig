@@ -11,41 +11,27 @@ homeassistant:
       hidden: true
     "*motion*":
       device_class: motion
+#  auth_providers:
+#    - type: home_assistant
+#    - type: legacy_api_password
       
 frontend:
   themes: !include_dir_merge_named themes/
-  javascript_version: es5
+#  javascript_version: es5
 
 # Enables configuration UI
 config:
 
+logger:
+  default: warning
+  logs:
+    homeassistant.components.http.ban: warning
+
+google_assistant: !include google_assistant.yaml
+
 alexa:
 
-intent_script:
-  ActivateSceneIntent:
-    action:
-      service: scene.turn_on
-      data_template:
-        entity_id: scene.{{ Scene | replace(" ", "_") }}
-    speech:
-      type: plain
-      text: !include alexa_confirm.yaml
-
-  ActivateScriptIntent:
-    action:
-      service: script.turn_on
-      data_template:
-        entity_id: script.{{ Script | replace(" ", "_") }}
-    speech:
-      type: plain
-      text: !include alexa_confirm.yaml
-
-  amzn1.ask.skill.eaf2305c-434e-4b9f-b311-f8b0093323b0:
-    action:
-      service: script.bye_felicia
-    speech:
-      type: plain
-      text: "Later Hater"
+intent_script: !include intent_script.yaml
 
 input_boolean:
   night_mode:
@@ -56,13 +42,22 @@ input_boolean:
     name: Vacation Mode
     initial: off
     icon: mdi:airplane
+  holiday_mode:
+    name: Holiday Lights Mode
+    initial: off
+    icon: mdi:pine-tree
 
 http:
   api_password: !secret http_password
   ip_ban_enabled: True
   login_attempts_threshold: 3
+  use_x_forwarded_for: True
+  trusted_proxies: 
+    - 127.0.0.1
+    - 192.168.86.87
+    - ::1
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  # base_url: example.duckdns.org:8123
+  # base_url: 4445h.duckdns.org
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -74,7 +69,7 @@ updater:
   include_used_components: true
 
 # Discover some devices automatically
-discovery:
+#discovery:
         
 remote:
   - platform: harmony
@@ -187,10 +182,10 @@ zwave:
   device_config: !include zwave_device_config.yaml
 
 binary_sensor:
-  - platform: ring
-    monitored_conditions:
-      - ding
-      - motion
+# - platform: ring
+#   monitored_conditions:
+#     - ding
+#     - motion
   - platform: template
     sensors:
       front_door_open:
@@ -208,8 +203,16 @@ binary_sensor:
         value_template: '{{ is_state("sensor.garage_access_control", "22") }}'
         entity_id: sensor.garage_access_control
         device_class: opening
-
-
+      living_room_left_window_open:
+        friendly_name: 'Living Room Left Window Security'
+        value_template: '{{ is_state("sensor.living_room_left_window_access_control", "22") }}'
+        entity_id: sensor.living_room_left_window_access_control
+        device_class: opening
+      living_room_right_window_open:
+        friendly_name: 'Living Room Right Window Security'
+        value_template: '{{ is_state("sensor.living_room_right_window_access_control", "22") }}'
+        entity_id: sensor.living_room_right_window_access_control
+        device_class: opening
 sensor:
 #  - platform: yr
   - platform: google_wifi
@@ -275,12 +278,41 @@ emulated_hue:
 #    - switch
 #    - scene
 
-#switch:
-# - platform: tplink
-#   host: 192.168.86.112
-# - platform: tplink
-#   host: 192.168.86.150
-#   name: 'Holiday Tree'
+switch:
+ - platform: tplink
+   host: 192.168.86.112
+   name: 'Living Room Tree'
+ - platform: tplink
+   host: 192.168.86.150
+   name: 'Holiday Lights'
+ - platform: tplink
+   host: 192.168.86.92
+   name: 'Dohm'
+ - platform: tplink
+   host: 192.168.86.41
+   name: 'Holiday Two'
+light:
+  - platform: group
+    name: Kitchen
+    entities:
+      - light.main_kitchen_light_level
+      - light.kitchen_spots_level
+      - light.pendants_level
+  - platform: group
+    name: Bedroom
+    entities: 
+      - light.colin_lamp_level
+      - light.charlie_lamp_level
+  - platform: group
+    name: TV Room
+    entities: 
+      - light.hue_white_right
+      - light.hue_white_left
+      - light.tv_room_ceiling_level
+  - platform: yeelight
+    devices:
+      192.168.86.186:
+        name: Bed Color
 
 ecobee:
   api_key: !secret ecobee_api_key
